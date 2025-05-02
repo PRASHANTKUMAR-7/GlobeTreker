@@ -9,7 +9,7 @@
     <h3>All Listing</h3>
     <ul>
         <% for(let list of allListing){ %>
-          <li><%= list.title %></li>  
+          <li><a href="/listings<%=list._id %>"><%= list.title %></li></a> <!-- here we use anchor tag because it convert the names into hyperlink and the herf whill redirect shor route where we will displat the specific data of that pericular title -->
         <%}%>
     </ul>
 </body>

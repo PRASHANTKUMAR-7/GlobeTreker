@@ -21,8 +21,8 @@ app.get("/", (req,res)=>{
     res.send("Hi, I am Root");
 });
 
-//print alll data on root route
-app.get("/listing", async(req,res)=> {
+//print alll data on root route or It is Index Route
+app.get("/listings", async(req,res)=> {
    const allListing= await Listing.find({});
    res.render("./listings/index.ejs",{allListing});
 });
