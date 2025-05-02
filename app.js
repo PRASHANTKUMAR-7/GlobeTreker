@@ -1,7 +1,7 @@
 const express=require("express");
 const app = express();
 const mongoose = require('mongoose');
-const Listing=require("../models/listing.js");
+const Listing = require("./models/listing.js");
 
 
 main().then(()=>{
@@ -19,14 +19,17 @@ app.get("/", (req,res)=>{
 });
 
 //creating a sample Listing 
-app.get("/testListing" , (req,res)=>{
+app.get("/testListing" ,async (req,res)=>{
     let sampleListing = new Listing({
         title: "New Villa",
         description: "Om Namah Shivay",
         price: 12000,
         location: "Assi Ghat, Varanasi",
         country: "India",
-    })
+    });
+    await sampleListing.save();
+    console.log("Sample was Saved");
+    res.send("Successful");
 })
 
 app.listen(8080,()=>{
