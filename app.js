@@ -15,7 +15,7 @@ async function main() {
 }
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname,"views"));
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 
 
 app.get("/", (req,res)=>{
@@ -27,12 +27,19 @@ app.get("/listings", async(req,res)=> {
    const allListing= await Listing.find({});
    res.render("./listings/index.ejs",{allListing});
 });
+//Route to Create new Listing
+app.get("/listings/new",(req,res)=>{
+    res.render("listings/new.ejs")
+}); // we puth this route before show route because app.js considering new as id hence ther is error for going on route listings/new
 
 //Show Route
-aap.get("/listing/:id", async(req,res)=>{
+app.get("/listings/:id", async(req,res)=>{
     let {id}= req.params;
-    const listing=await Listing.findById(id);
+    const listing = await Listing.findById(id);
+    res.render("listings/show.ejs",{listing});
 });
+
+
 
 
 //creating a sample Listing 
