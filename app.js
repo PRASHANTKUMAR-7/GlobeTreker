@@ -15,17 +15,25 @@ async function main() {
 }
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname,"views"));
+app.use(express.urlencoded({extended: true}));
 
 
 app.get("/", (req,res)=>{
     res.send("Hi, I am Root");
 });
 
-//print alll data on root route or It is Index Route
+//print all data on root route or It is Index Route
 app.get("/listings", async(req,res)=> {
    const allListing= await Listing.find({});
    res.render("./listings/index.ejs",{allListing});
 });
+
+//Show Route
+aap.get("/listing/:id", async(req,res)=>{
+    let {id}= req.params;
+    const listing=await Listing.findById(id);
+});
+
 
 //creating a sample Listing 
 // app.get("/testListing" ,async (req,res)=>{
