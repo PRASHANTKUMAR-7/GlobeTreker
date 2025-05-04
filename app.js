@@ -34,8 +34,10 @@ app.get("/listings/new",(req,res)=>{
 
 //Route to save new data created by abouve route 
 //there are two method to get data inserted in form either by targeting each data like this := let{title, description,image,price,country, location}=req.body but it is long method we can do it simmple way just make all data in new.ejs obj of listing watch in new.ejs 
-app.post("/listings",(req,res)=>{
-
+app.post("/listings",async(req,res)=>{
+    const newList=new Listing(req.body.listing);
+    await newList.save();
+    res.redirect("/listings");
 })
 
 //Show Route
