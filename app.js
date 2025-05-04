@@ -32,6 +32,12 @@ app.get("/listings/new",(req,res)=>{
     res.render("listings/new.ejs")
 }); // we puth this route before show route because app.js considering new as id hence ther is error for going on route listings/new
 
+//Route to save new data created by abouve route 
+//there are two method to get data inserted in form either by targeting each data like this := let{title, description,image,price,country, location}=req.body but it is long method we can do it simmple way just make all data in new.ejs obj of listing watch in new.ejs 
+app.post("/listings",(req,res)=>{
+
+})
+
 //Show Route
 app.get("/listings/:id", async(req,res)=>{
     let {id}= req.params;
