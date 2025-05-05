@@ -47,6 +47,12 @@ app.get("/listings/:id", async(req,res)=>{
     res.render("listings/show.ejs",{listing});
 });
 
+//Route for edit the listing
+app.get("/listings/:id/edit",async(req,res)=>{
+    let {id}= req.params;
+    const listing = await Listing.findById(id);
+})
+
 
 
 
