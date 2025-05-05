@@ -17,7 +17,8 @@ async function main() {
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname,"views"));
 app.use(express.urlencoded({ extended: true }));
-app.use(methodOverride("_metthod"));
+app.use(methodOverride("_method"));
+
 
 
 app.get("/", (req,res)=>{
@@ -56,10 +57,10 @@ app.get("/listings/:id/edit",async(req,res)=>{
     res.render("listings/edit.ejs",{listing});
 });
 //Route which take inout from edit.ejs and save it to database
-app.put("/listings",async(req,res)=>{
-    let {id}= req.params;
-    await Listing.findByIdAndUpdate(id,{...req.body.Listing}); //since Listing is a js obj which has all parameter of db
-    res.redirect("/listings")
+app.put("/listings/:id",async(req,res)=>{
+    let { id } = req.params;
+    await Listing.findByIdAndUpdate(id, { ...req.body.listing }); //since Listing is a js obj which has all parameter of db
+    res.redirect(`/listings/${id}`); //this will redirect on Show.ejs
 });
 
 
