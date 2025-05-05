@@ -7,11 +7,11 @@
 </head>
 <body>
     <h3>Edit your Listing</h3>
-    <form method="POST" method="/listings/<%= lisitng._id %>?_method=PUT">
+    <form method="POST" action="/listings/<%= lisitng._id %>?_method=PUT">
         <!-- use method to override post request to put request -->
         <input name="listing[title]" value="<%=listing.title%>" type="text">
         <br>
-        <textarea name=listing[description] value="<%=listing.description%>" id=""></textarea>
+        <textarea name=listing[description]>"<%=listing.description%>"></textarea>
         <br>
         <input name=listing[image] value="<%=listing.image.url %>" type="text">
         <br>
