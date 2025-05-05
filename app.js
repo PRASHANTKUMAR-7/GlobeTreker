@@ -63,6 +63,13 @@ app.put("/listings/:id",async(req,res)=>{
     res.redirect(`/listings/${id}`); //this will redirect on Show.ejs
 });
 
+//Route to delete the list
+app.delete("/listings/:id",async (req,res)=>{
+    let { id } = req.params;
+    let deletedListing=await Listing.findByIdAndDelete(id); 
+    console.log(deletedListing);
+    res.redirect("/listings");   
+});
 
 
 
