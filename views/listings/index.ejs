@@ -8,9 +8,9 @@
 <% layout("/layouts/boilerplate")%> <!--here we use ejs-mate-->
 <body>
     <h3>All Listing</h3>
-    <form  method="GET" action="/listings/new">
+    <!-- <form  method="GET" action="/listings/new">
         <Button>New Listing</Button>
-    </form>
+    </form> -->
     <ul>
         <% for(let list of allListing){ %>
           <li><a href="/listings/<%=list._id %>"><%= list.title %></li></a> <!-- here we use anchor tag because it convert the names into hyperlink and the herf whill redirect shor route where we will displat the specific data of that pericular title -->
