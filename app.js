@@ -15,11 +15,12 @@ main().then(()=>{
 async function main() {
   await mongoose.connect('mongodb://127.0.0.1:27017/wanderLust');
 }
-app.set("view engine", "ejs");
-app.set("views", path.join(__dirname,"views"));
-app.use(express.urlencoded({ extended: true }));
-app.use(methodOverride("_method"));
+app.set("view engine", "ejs"); //use to get accsess to ejs file
+app.set("views", path.join(__dirname,"views")); // use to define folder name to js to search ejs file
+app.use(express.urlencoded({ extended: true })); //it it use to get data or extract data from url 
+app.use(methodOverride("_method")); //use to get accses to method who is responsible for chaning form GET/POST req to DELETE/PUT 
 app.engine('ejs',ejsMate); 
+app.use(express.static(path.join(__dirname,"/public")));//use to accsess to static file like css and more
 
 
 
