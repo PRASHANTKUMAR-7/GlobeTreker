@@ -1,3 +1,13 @@
-body{
+/* body{
     background-color: rgb(255, 154, 233);
-}
+} */
+ .navbar{
+    height:5rem;
+ }
+ .fa-compass{
+    color: #fe424d;
+    font-size: 2rem;
+ }
+ .nav-link{
+    color: #222222 !important; /* here we use !importantbecuse if we use bootstrap and we want out custom style overlap bootstrap then we use it  */
+ }
