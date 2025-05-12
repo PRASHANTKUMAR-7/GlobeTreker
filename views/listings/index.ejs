@@ -11,20 +11,19 @@
     <!-- <form  method="GET" action="/listings/new">
         <Button>New Listing</Button>
     </form> --> <!-- now the name behave as hyperlink which redirect to show.ejs -->
+    <div class="row row-col-lg-3 row-col-md-2 row-col-sm-1">
     <% for(let list of allListing){ %>
         <div class="card" style="width: 18rem;">
-            <img src="<%=list.image.url%>" class="card-img-top" alt="list_image">
+            <img src="<%=list.image.url%>" class="card-img-top" alt="list_image" style="height: 10rem;">
             <div class="card-body">
               <h5 class="card-title"><%=list.title%></h5>
               <p class="card-text"><%=list.description%></p>
-              <a href="/listings/show.ejs" class="btn btn-primary">Go somewhere</a>
+              <p class="card-text"><b><%=list.price.toLocaleString("en-IN")%>/ night</b></p>
+              <a href="/listings/<%= list._id %>" class="btn btn-primary">View Listing</a>
+
             </div>
         </div>
     <%}%>
-    <ul>
-        <% for(let list of allListing){ %>
-          <li><a href="/listings/<%=list._id %>"><%= list.title %></li></a> <!-- here we use anchor tag because it convert the names into hyperlink and the herf whill redirect shor route where we will displat the specific data of that pericular title -->
-        <%}%>
-    </ul>
+    </div>
 </body>
 <!-- </html> -->
