@@ -53,8 +53,9 @@ body{
 
  /* cards */
  .card{
-   border: nome !important;
+   border: none !important;
    margin-bottom: 2rem;
+   
  }
  .card.img.top{
    border-radius: 1rem !important;
@@ -74,11 +75,11 @@ body{
    text-decoration: none;
  } 
 
- .card-overlay{
+ .card-img-overlay{
    opacity: 0;
  }
 
- .card-overlay:hover{
+ .card-img-overlay:hover{
    opacity: 0.2;
-   background-color:white ;
+   background-color:white;
  }
