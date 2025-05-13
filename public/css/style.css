@@ -75,5 +75,10 @@ body{
  } 
 
  .card-overlay{
-   
+   opacity: 0;
+ }
+
+ .card-overlay:hover{
+   opacity: 0.2;
+   background-color:white ;
  }
