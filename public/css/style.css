@@ -8,6 +8,10 @@ body{
   min-height: 100vhS;
 }
 
+.container{
+  flex:1;
+}
+
  /* NavBar */
  .navbar{
     height:5rem;
