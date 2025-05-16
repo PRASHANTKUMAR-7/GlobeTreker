@@ -3,42 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WanderLust</title> -->
-    <% layout("/layout/boilerplate")%>
-</head>
+    <title>WanderLust</title>
+    </head> -->
+    <% layout("/layouts/boilerplate")%>
 <body>
+    <h3>Creating a New Listing</h3>
     <form method="POST" action="/listings">
         <!-- making all data as a obj of listing variable as tole in post request of saving data of nre listing --> 
-        <div>
+        <div class="md-3">
             <label for="title" class="form-lable">Title</label>       
             <input name=listing[title] placeholder="enter title" type="text" class="form-control">
         </div>
 
-        <div>
+        <div class="md-3">
             <label for="description" class="form-lable">Description</label> 
             <textarea name=listing[description] placeholder="write description" id="" class="form-control"></textarea>
         </div>
 
-        <div>
+        <div class="md-3">
             <label for="image" class="form-lable">Image Link</label>
             <input name=listing[image] placeholder="enter or paste url of image" type="text" class="form-control">
         </div> 
 
-        <div>
+        <div class="md-3">
             <label for="price" class="form-lable">Price</label>
             <input name=listing[price] placeholder="put your price" type="number" class="form-control">
         </div>   
 
-        <div>
+        <div class="md-3">
             <label for="country" class="form-lable">Country</label>
             <input name=listing[country] placeholder="enter country" type="text" class="form-control">
         </div>   
 
-        <div>
+        <div class="md-3">
             <label for="location" class="form-lable">Location</label>
             <input name=listing[location] placeholder="enter location" type="text" class="form-control">
         </div>      
         <button class="btn btn-dark">ADD</button>
     </form>    
 </body>
-</html>
+<!-- </html> -->
