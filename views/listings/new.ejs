@@ -7,26 +7,37 @@
 </head>
 <body>
     <form method="POST" action="/listings">
-        <!-- making all data as a obj of listing variable as tole in post request of saving data of nre listing -->        
-        <input name=listing[title] placeholder="enter title" type="text">
-        <br>
-        <br>
-        <textarea name=listing[description] placeholder="write description" id=""></textarea>
-        <br>
-        <br>
-        <input name=listing[image] placeholder="enter or paste url of image" type="text">
-        <br>
-        <br>
-        <input name=listing[price] placeholder="put your price" type="number">
-        <br>
-        <br>
-        <input name=listing[country] placeholder="enter country" type="text">
-        <br>
-        <br>
-        <input name=listing[location] placeholder="enter location" type="text">
-        <br>
-        <br>        
-        <button>ADD</button>
+        <!-- making all data as a obj of listing variable as tole in post request of saving data of nre listing --> 
+        <div>
+            <label for="title" class="form-lable">Title</label>       
+            <input name=listing[title] placeholder="enter title" type="text" class="form-control">
+        </div>
+
+        <div>
+            <label for="title" class="form-lable">Description</label> 
+            <textarea name=listing[description] placeholder="write description" id="" class="form-control"></textarea>
+        </div>
+
+        <div>
+            <label for="title" class="form-lable">Image Link</label>
+            <input name=listing[image] placeholder="enter or paste url of image" type="text" class="form-control">
+        </div> 
+
+        <div>
+            <label for="title" class="form-lable">Price</label>
+            <input name=listing[price] placeholder="put your price" type="number" class="form-control">
+        </div>   
+
+        <div>
+            <label for="title" class="form-lable">Country</label>
+            <input name=listing[country] placeholder="enter country" type="text" class="form-control">
+        </div>   
+
+        <div>
+            <label for="title" class="form-lable">Location</label>
+            <input name=listing[location] placeholder="enter location" type="text" class="form-control">
+        </div>      
+        <button class="btn btn-dark">ADD</button>
     </form>    
 </body>
 </html>
