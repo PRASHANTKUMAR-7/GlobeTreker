@@ -95,3 +95,6 @@ body{
   display: flex ;
   justify-content: space-around;
  }
+ .add-btn{
+  background-color:#fe424d !important;
+ }
