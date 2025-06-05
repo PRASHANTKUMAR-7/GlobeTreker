@@ -10,17 +10,17 @@
     <form method="POST" action="/listings/<%= listing._id %>?_method=PUT">
         <!-- use method to override post request to put request -->
         <input name="listing[title]" value="<%=listing.title%>" type="text">
-        <br>
+        <br><br>
         <textarea name=listing[description]><%=listing.description %></textarea>
-        <br>
+        <br><br>
         <input name=listing[image] value="<%=listing.image.url %>" type="text">
-        <br>
+        <br><br>
         <input name=listing[price] value="<%=listing.price%>" type="number">
-        <br>
+        <br><br>
         <input name=listing[country] value="<%=listing.country%>" type="text">
-        <br>
+        <br><br>
         <input name=listing[location] value="<%=listing.location%>" type="text">
-        <br>        
+        <br><br>        
         <button>Edit</button>
     </form> 
     

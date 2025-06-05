@@ -5,21 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WanderLust</title>
  </head> // comented here b/c here we use ejs-mate which work as boilercode for this page -->
- <% layout("/layouts/boilerplate")%> <!--here we use ejs-mate-->
+ <% layout("/layouts/boilerplate") %> <!-- Using ejs-mate layout -->
+
 <body>
-    <h3>Listing Details: </h3>
+    <h3>Listing Details:</h3>
     <ul>
-        <li><%=listing.title %></li>
-        <li><%=listing.description %></li>
-        <li> &#8377;<%=listing.price.toLocaleString("en-IN") %></li>
-        <li><%=listing.location %></li>
-        <li><%=listing.country %></li>
+        <li><%= listing.title %></li>
+        <li><%= listing.description %></li>
+
+        <% if (listing.price != null && typeof listing.price === "number") { %>
+            <li>&#8377;<%= listing.price.toLocaleString("en-IN") %></li>
+        <% } else { %>
+            <li>Price not available</li>
+        <% } %>
+
+        <li><%= listing.location %></li>
+        <li><%= listing.country %></li>
     </ul>
+
     <br>
-    <a href="/listings/<%=listing._id%>/edit">Edit The Listing</a>
+    <a href="/listings/<%= listing._id %>/edit">Edit The Listing</a>
     <br>
-    <form method="POST" action="/listings/<%=listing._id%>?_method=DELETE">
-        <button>Delete</button>
+
+    <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE">
+        <button class="btn btn-danger mt-2">Delete</button>
     </form>
 </body>
+
 <!-- </html> -->

@@ -5,27 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WanderLust</title>
 </head> -->
-<% layout("/layouts/boilerplate")%> <!--here we use ejs-mate-->
+
+<!-- <form  method="GET" action="/listings/new">
+        <Button>New Listing</Button>
+    </form> --> <!-- now the name behave as hyperlink which redirect to show.ejs -->
+
+
+<% layout("/layouts/boilerplate") %> <!-- ejs-mate layout -->
 <body>
-    <h3>All Listing</h3>
+    <h3>All Listings</h3>
     <!-- <form  method="GET" action="/listings/new">
         <Button>New Listing</Button>
     </form> --> <!-- now the name behave as hyperlink which redirect to show.ejs -->
     <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
-    <% for(let list of allListing){ %>
-            <div class="card" style="width: 18rem;">
+        <% for(let list of allListing) { %>
+            <div class="card m-3" style="width: 18rem;">
                 <a href="/listings/<%= list._id %>" class="listing-link">
-                <img src="<%=list.image.url%>" class="card-img-top" alt="list_image" style="height: 10rem;"/>
-                <div class="card-img-overlay">Try It!</div>
-                    <div class="card-body">
-                        <h5 class="card-title"><%=list.title%></h5>
-                        </a> 
-                        <p class="card-text"><%=list.description%></p>
-                        <p class="card-text"><b><%=list.price.toLocaleString("en-IN")%>/ night</b></p>
-                        <a href="/listings/<%= list._id %>" class="btn btn-primary">View Listing</a>
-                    </div>
-           </div>
-    <%}%>
+                    <img src="<%= list.image.url %>" class="card-img-top" alt="list_image" style="height: 10rem;" />
+                    <div class="card-img-overlay text-white bg-dark bg-opacity-50">Try It!</div>
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title"><%= list.title %></h5>
+                    <p class="card-text"><%= list.description %></p>
+
+                    <% if (list.price != null) { %>
+                        <p class="card-text">
+                            <b><%= list.price.toLocaleString("en-IN") %> / night</b>
+                        </p>
+                    <% } else { %>
+                        <p class="card-text"><b>Price not available</b></p>
+                    <% } %>
+
+                    <a href="/listings/<%= list._id %>" class="btn btn-primary">View Listing</a>
+                </div>
+            </div>
+        <% } %>
     </div>
 </body>
 <!-- </html> -->
