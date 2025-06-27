@@ -7,9 +7,8 @@
     </head> -->
     <% layout("/layouts/boilerplate")%>
 <body>
-    <div>
-    <div>
-        <br>
+    <div class="row">
+        <div class="col-8 offset-0.5">
     <h3>Creating a New Listing</h3>
     <form method="POST" action="/listings">
         <!-- making all data as a obj of listing variable as tole in post request of saving data of nre listing --> 
@@ -43,10 +42,9 @@
             <label for="location" class="form-lable">Location</label>
             <input name=listing[location] placeholder="enter location" type="text" class="form-control">
         </div>      
-        <button class="add-btn btn-dark">ADD</button>
+        <button class="add-btn btn-dark mt-3 mb-2">ADD</button>
     </form>  
     </div>
-    <br>
     </div>  
 </body>
 <!-- </html> -->
