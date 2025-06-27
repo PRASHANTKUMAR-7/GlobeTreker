@@ -15,30 +15,30 @@
         </div>
 
         <div class="mb-3">
-            <label for="title" class="form-lable">Title</label> 
-            <textarea name=listing[description]><%=listing.description %></textarea>
+            <label for="description" class="form-lable">Title</label> 
+            <textarea name="listing[description]" class="flow-control"><%=listing.description %></textarea>
         </div> 
         
         <div class="mb-3">
             <label for="image" class="form-lable">Image Link</label> 
-            <input name=listing[image] value="<%=listing.image.url %>" type="text" class="flow-control" >
+            <input name="listing[image]" value="<%=listing.image.url %>" type="text" class="flow-control" >
         </div> 
         
         <div class="mb-3">
             <label for="price" class="form-lable">Price</label> 
-            <input name=listing[price] value="<%=listing.price%>" type="number" class="flow-control">
+            <input name="listing[price]" value="<%=listing.price%>" type="number" class="flow-control">
         </div> 
         
         <div class="mb-3">
             <label for="country" class="form-lable">Country</label> 
-            <input name=listing[country] value="<%=listing.country%>" type="text" class="flow-control">
+            <input name="listing[country]" value="<%=listing.country%>" type="text" class="flow-control">
         </div> 
         
         <div class="mb-3">
             <label for="location" class="form-lable">Location</label> 
-            <input name=listing[location] value="<%=listing.location%>" type="text" class="flow-control">
+            <input name="listing[location]" value="<%=listing.location%>" type="text" class="flow-control">
         </div>            
-        <button>Edit</button>
+        <button class="btn btn-dark edit-btn">Edit</button>
     </form> 
     
 </body>
