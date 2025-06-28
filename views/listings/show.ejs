@@ -21,19 +21,19 @@
                             <%= listing.title %>
                         </b>
                         <br />
-                        <%= listing.description %>
-                            <br />
+                            <%= listing.description %>
+                        <br />
                             <% if (listing.price !=null && typeof listing.price==="number" ) { %>
                                 &#8377;<%= listing.price.toLocaleString("en-IN") %>
-
-                                    <% } else { %>
-                                        <li>Price not available</li>
-                                        <% } %>
-                                            <br />
-                                            <%= listing.location %>
-                                                <br />
-                                                <%= listing.country %>
-                                                    <br />
+                            <% } 
+                                else { %>
+                                    <li>Price not available</li>
+                            <% } %>
+                        <br />
+                                <%= listing.location %>
+                        <br />
+                                <%= listing.country %>
+                        <br />
                     </p>
                 </div>
             </div>
