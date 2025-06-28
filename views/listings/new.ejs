@@ -18,12 +18,18 @@
                         <label for="title" class="form-lable">Title</label>
                         <input name=listing[title] placeholder="enter title" type="text" class="form-control" required> 
                         <!-- required is used to make sure form must contain the tille data  -->
+                        <div class="invalid-feedback">
+                            Please insert correct title.
+                        </div>
                     </div>
 
                     <div class="mb-3">
                         <label for="description" class="form-lable">Description</label>
                         <textarea name=listing[description] placeholder="write description" id=""
                             class="form-control" required></textarea>
+                            <div class="invalid-feedback">
+                            Description must be short.
+                        </div>
                     </div>
 
                     <div class="mb-3">
@@ -35,17 +41,26 @@
                         <div class="mb-3 col-md-4">
                             <label for="price" class="form-lable">Price</label>
                             <input name=listing[price] placeholder="put your price" type="number" class="form-control" required>
+                            <div class="invalid-feedback">
+                                Please write correct price.
+                            </div>
                         </div>
 
                         <div class="mb-3 col-md-8">
                             <label for="country" class="form-lable">Country</label>
                             <input name=listing[country] placeholder="enter country" type="text" class="form-control" required>
+                            <div class="invalid-feedback">
+                            Please write correct Country.
+                        </div>
                         </div>
                     </div>
 
                     <div class="mb-3">
                         <label for="location" class="form-lable">Location</label>
                         <input name=listing[location] placeholder="enter location" type="text" class="form-control" required>
+                        <div class="invalid-feedback">
+                            Please write correct location.
+                        </div>
                     </div>
                     <button class="add-btn btn-dark mt-3 mb-2">ADD</button>
                 </form>
