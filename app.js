@@ -44,7 +44,7 @@ app.get("/", (req, res) => {
 const validateListing=(req,res,next)=>{
     let{error}=listingSchema.validate(req.body);
     if(error){
-        throw new ExpressError(400, result.error);
+        throw new ExpressError(400, error);
     }
     else{
         next();
@@ -67,6 +67,8 @@ app.get("/listings/new",  wrapAsync(async (req, res) => {
 //Route to save new data created by above route 
 //there are two method to get data inserted in form either by targeting each data like this := let{title, description,image,price,country, location}=req.body but it is long method we can do it simmple way just make all data in new.ejs obj of listing watch in new.ejs 
 app.post("/listings", 
+    validateListing, //first check the validateListing then all 
+
     wrapAsync(async (req, res,next) => {
     // From now  this below condition is held by JOI 
     // if(!req.body.listing){
@@ -113,8 +115,10 @@ app.get("/listings/:id/edit", wrapAsync(async (req, res) => {
     res.render("listings/edit.ejs", { listing });
 }));
 
-//Route which take inout from edit.ejs and save it to database
-app.put("/listings/:id", wrapAsync(async (req, res) => {
+//Route which take inout from edit.ejs and save it to database "Update Route"
+app.put("/listings/:id",
+    validateListing,
+    wrapAsync(async (req, res) => {
     let { id } = req.params;
     await Listing.findByIdAndUpdate(id, { ...req.body.listing }); //since Listing is a js obj which has all parameter of db
     res.redirect(`/listings/${id}`); //this will redirect on Show.ejs
