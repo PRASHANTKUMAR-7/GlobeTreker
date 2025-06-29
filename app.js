@@ -41,13 +41,17 @@ app.get("/listings", async (req, res) => {
 });
 
 //Route to Create new Listing
-app.get("/listings/new", (req, res) => {
-    res.render("listings/new.ejs")
-}); // we puth this route before show route because app.js considering new as id hence ther is error for going on route listings/new
+app.get("/listings/new",  wrapAsync(async (req, res) => {
+    res.render("listings/new.ejs");
+
+})); // we puth this route before show route because app.js considering new as id hence ther is error for going on route listings/new
 
 //Route to save new data created by above route 
 //there are two method to get data inserted in form either by targeting each data like this := let{title, description,image,price,country, location}=req.body but it is long method we can do it simmple way just make all data in new.ejs obj of listing watch in new.ejs 
 app.post("/listings", wrapAsync(async (req, res,next) => {
+    if(!req.body.listing){
+        throw new ExpressError(400,"Send valid data for listing")
+    }
     const newList = new Listing(req.body.listing);
     await newList.save();
     res.redirect("/listings");    
@@ -55,33 +59,33 @@ app.post("/listings", wrapAsync(async (req, res,next) => {
 );  
 
 //Show Route
-app.get("/listings/:id", async (req, res) => {
+app.get("/listings/:id",  wrapAsync(async (req, res) => {
     let { id } = req.params;
     const listing = await Listing.findById(id);
     res.render("listings/show.ejs", { listing });
-});
+}));
 
 //Route for edit the listing
-app.get("/listings/:id/edit", async (req, res) => {
+app.get("/listings/:id/edit", wrapAsync(async (req, res) => {
     let { id } = req.params;
     const listing = await Listing.findById(id);
     res.render("listings/edit.ejs", { listing });
-});
+}));
 
 //Route which take inout from edit.ejs and save it to database
-app.put("/listings/:id", async (req, res) => {
+app.put("/listings/:id", wrapAsync(async (req, res) => {
     let { id } = req.params;
     await Listing.findByIdAndUpdate(id, { ...req.body.listing }); //since Listing is a js obj which has all parameter of db
     res.redirect(`/listings/${id}`); //this will redirect on Show.ejs
-});
+}));
 
 //Route to delete the list
-app.delete("/listings/:id", async (req, res) => {
+app.delete("/listings/:id", wrapAsync(async (req, res) => {
     let { id } = req.params;
     let deletedListing = await Listing.findByIdAndDelete(id);
     console.log(deletedListing);
     res.redirect("/listings");
-});
+}));
 
 
 
@@ -105,15 +109,16 @@ app.delete("/listings/:id", async (req, res) => {
 //middleware to check for error and custom error also database error 
 app.use((err, req, res, next) => {
     const { statusCode = 500, message = "Something went wrong!" } = err;
-    res.status(statusCode).send(message);
+    // res.status(statusCode).send(message);
+    res.status(statusCode).render("error.ejs",{message});
 });
 
 
 // if there is error in above router and then our middleware error handler will work 
 // but is router doesn't match or doesn't exit then then we go for a universal error handling .
-// app.all("*", (req, res, next) => {
-//     next(new ExpressError(404, "Page Not Found!"));
-// });
+app.all(/.*/, (req, res, next) => {
+  next(new ExpressError(404,"Page Not Found"));
+});
 
 app.listen(8080, () => {
     console.log("server is listening to port 8080");
