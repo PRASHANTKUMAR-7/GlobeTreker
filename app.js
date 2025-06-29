@@ -55,24 +55,34 @@ app.get("/listings/new",  wrapAsync(async (req, res) => {
 
 //Route to save new data created by above route 
 //there are two method to get data inserted in form either by targeting each data like this := let{title, description,image,price,country, location}=req.body but it is long method we can do it simmple way just make all data in new.ejs obj of listing watch in new.ejs 
-app.post("/listings", wrapAsync(async (req, res,next) => {
-    if(!req.body.listing){
-        throw new ExpressError(400,"Send valid data for listing");
+app.post("/listings", 
+    wrapAsync(async (req, res,next) => {
+    // From now  this below condition is held by JOI 
+    // if(!req.body.listing){
+    //     throw new ExpressError(400,"Send valid data for listing");
+    // }
+    
+    // //condition 1 to check each data is valid on schema via using if condition on each case
+    // if(!newList.title){
+    //     throw new ExpressError(400,"Title is missing");
+    // }
+    // if(!newList.description){
+    //     throw new ExpressError(400,"Description is missing");
+    // }
+    // if(!newList.price){
+    //     throw new ExpressError(400,"Price is missing");
+    // }
+    // if(!newList.country){
+    //     throw new ExpressError(400,"Country is missing");
+    // }
+
+    //condition 2 check by JOI external tool
+    let result=listingSchema.validate(req.body); //here we check that the data is going to insert in db is valid which came from req.body
+    console.log(result);
+    if(result.error){
+        throw new ExpressError(400, result.error);
     }
     const newList = new Listing(req.body.listing);
-    //condition 1 to check each data is valid on schema via using if condition on each case
-    if(!newList.title){
-        throw new ExpressError(400,"Title is missing");
-    }
-    if(!newList.description){
-        throw new ExpressError(400,"Description is missing");
-    }
-    if(!newList.price){
-        throw new ExpressError(400,"Price is missing");
-    }
-    if(!newList.country){
-        throw new ExpressError(400,"Country is missing");
-    }
     await newList.save();
     res.redirect("/listings");    
 })
