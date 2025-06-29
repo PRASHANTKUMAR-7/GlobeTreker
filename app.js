@@ -35,11 +35,22 @@ app.use(express.static(path.join(__dirname, "/public")));//use to accsess to sta
 // e.g., in tools like Hoppscotch or Postman, or from React/JS frontend using fetch or axios
 app.use(express.json());
 
-
 // this is the root route
 app.get("/", (req, res) => {
     res.send("Hi, I am Root");
 });
+
+//converting JOI to middleware using funtion 
+const validateListing=(req,res,next)=>{
+    let{error}=listingSchema.validate(req.body);
+    if(error){
+        throw new ExpressError(400, result.error);
+    }
+    else{
+        next();
+    }
+};
+
 
 //print all data on root route or It is Index Route
 app.get("/listings", async (req, res) => {
@@ -61,7 +72,7 @@ app.post("/listings",
     // if(!req.body.listing){
     //     throw new ExpressError(400,"Send valid data for listing");
     // }
-    
+
     // //condition 1 to check each data is valid on schema via using if condition on each case
     // if(!newList.title){
     //     throw new ExpressError(400,"Title is missing");
@@ -76,12 +87,12 @@ app.post("/listings",
     //     throw new ExpressError(400,"Country is missing");
     // }
 
-    //condition 2 check by JOI external tool
-    let result=listingSchema.validate(req.body); //here we check that the data is going to insert in db is valid which came from req.body
-    console.log(result);
-    if(result.error){
-        throw new ExpressError(400, result.error);
-    }
+    //condition 2 checked by JOI external tool and comment it beacuse now it converted into a middleware at the top of all router we can see it 
+    // let result=listingSchema.validate(req.body); //here we check that the data is going to insert in db is valid which came from req.body
+    // console.log(result);
+    // if(result.error){
+    //     throw new ExpressError(400, result.error);
+    // }
     const newList = new Listing(req.body.listing);
     await newList.save();
     res.redirect("/listings");    
