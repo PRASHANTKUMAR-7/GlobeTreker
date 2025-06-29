@@ -44,7 +44,9 @@ app.get("/", (req, res) => {
 const validateListing=(req,res,next)=>{
     let{error}=listingSchema.validate(req.body);
     if(error){
-        throw new ExpressError(400, error);
+        //since the error is obj so we map it  below and use only use full data from it 
+        let errMsg = error.details.map((el)=>el.message).join(",");
+        throw new ExpressError(400, errMsg);
     }
     else{
         next();
