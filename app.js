@@ -100,11 +100,20 @@ app.delete("/listings/:id", async (req, res) => {
 //     res.send("Successful");
 // });
 
-//middleware to check for error
-app.use((err,req,res,next)=>{
-    res.send("Something went wrong")
+
+
+//middleware to check for error and custom error also database error 
+app.use((err, req, res, next) => {
+    const { statusCode = 500, message = "Something went wrong!" } = err;
+    res.status(statusCode).send(message);
 });
 
+
+// if there is error in above router and then our middleware error handler will work 
+// but is router doesn't match or doesn't exit then then we go for a universal error handling .
+// app.all("*", (req, res, next) => {
+//     next(new ExpressError(404, "Page Not Found!"));
+// });
 
 app.listen(8080, () => {
     console.log("server is listening to port 8080");
