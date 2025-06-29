@@ -1,17 +1,18 @@
 // aquiring/requiring  and loading function  
 
-const express = require("express");
+const express = require("express"); //adding express
 const app = express();
-const mongoose = require('mongoose');
-const Listing = require("./models/listing.js");
+const mongoose = require('mongoose'); //adding mongoose
+const Listing = require("./models/listing.js"); //mongodb Schema
 const path = require("path");
-const methodOverride = require("method-override");
+const methodOverride = require("method-override"); //use for changing form get/post to delete/patch
 const ejsMate = require("ejs-mate");
-const wrapAsync=require("./utils/wrapAsync.js");
+const wrapAsync=require("./utils/wrapAsync.js"); //client side custome error handling
 const ExpressError=require("./utils/ExpressError.js");
+const {listingSchema} = require("/schema.js"); //server side error handling to check schema of server database using JOI
 
 
-// establishing mongodb wiht try and catch
+// establishing mongodb with try and catch
 main().then(() => {
     console.log("conected to DB")
 })
@@ -27,6 +28,12 @@ app.use(express.urlencoded({ extended: true })); //it it use to get data or extr
 app.use(methodOverride("_method")); //use to get accses to method who is responsible for chaning form GET/POST req to DELETE/PUT 
 app.engine('ejs', ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));//use to accsess to static file like css and more
+
+// Middleware to parse incoming requests with JSON payloads
+// This allows you to access data sent in the body of a POST or PUT request via req.body
+// Required when sending requests with 'Content-Type: application/json'
+// e.g., in tools like Hoppscotch or Postman, or from React/JS frontend using fetch or axios
+app.use(express.json());
 
 
 // this is the root route
@@ -50,9 +57,22 @@ app.get("/listings/new",  wrapAsync(async (req, res) => {
 //there are two method to get data inserted in form either by targeting each data like this := let{title, description,image,price,country, location}=req.body but it is long method we can do it simmple way just make all data in new.ejs obj of listing watch in new.ejs 
 app.post("/listings", wrapAsync(async (req, res,next) => {
     if(!req.body.listing){
-        throw new ExpressError(400,"Send valid data for listing")
+        throw new ExpressError(400,"Send valid data for listing");
     }
     const newList = new Listing(req.body.listing);
+    //condition 1 to check each data is valid on schema via using if condition on each case
+    if(!newList.title){
+        throw new ExpressError(400,"Title is missing");
+    }
+    if(!newList.description){
+        throw new ExpressError(400,"Description is missing");
+    }
+    if(!newList.price){
+        throw new ExpressError(400,"Price is missing");
+    }
+    if(!newList.country){
+        throw new ExpressError(400,"Country is missing");
+    }
     await newList.save();
     res.redirect("/listings");    
 })
@@ -120,6 +140,6 @@ app.all(/.*/, (req, res, next) => {
   next(new ExpressError(404,"Page Not Found"));
 });
 
-app.listen(8080, () => {
+app.listen(8080, () => { 
     console.log("server is listening to port 8080");
 });
