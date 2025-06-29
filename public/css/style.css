@@ -14,7 +14,7 @@ body {
 
 /* NavBar */
 .navbar {
-  height: 5rem;
+  height: 3rem;
   background-color: white;
 }
 
@@ -29,6 +29,7 @@ body {
 }
 
 /* Footer */
+
 
 .f-info-links a {
   text-decoration: none;
@@ -46,6 +47,7 @@ body {
   /* display: flex; */
   align-items: center;
   justify-content: center;
+  height: 100%;
 }
 
 .f-info-socials i {

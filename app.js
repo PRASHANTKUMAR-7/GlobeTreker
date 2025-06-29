@@ -1,3 +1,5 @@
+// aquiring/requiring  and loading function  
+
 const express = require("express");
 const app = express();
 const mongoose = require('mongoose');
@@ -5,8 +7,11 @@ const Listing = require("./models/listing.js");
 const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
+const wrapAsync=require("./utils/wrapAsync.js");
+const ExpressError=require("./utils/ExpressError.js");
 
 
+// establishing mongodb wiht try and catch
 main().then(() => {
     console.log("conected to DB")
 })
@@ -15,6 +20,7 @@ main().then(() => {
 async function main() {
     await mongoose.connect('mongodb://127.0.0.1:27017/wanderLust');
 }
+
 app.set("view engine", "ejs"); //use to get accsess to ejs file
 app.set("views", path.join(__dirname, "views")); // use to define folder name to js to search ejs file
 app.use(express.urlencoded({ extended: true })); //it it use to get data or extract data from url 
@@ -23,7 +29,7 @@ app.engine('ejs', ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));//use to accsess to static file like css and more
 
 
-
+// this is the root route
 app.get("/", (req, res) => {
     res.send("Hi, I am Root");
 });
@@ -33,18 +39,20 @@ app.get("/listings", async (req, res) => {
     const allListing = await Listing.find({});
     res.render("./listings/index.ejs", { allListing });
 });
+
 //Route to Create new Listing
 app.get("/listings/new", (req, res) => {
     res.render("listings/new.ejs")
 }); // we puth this route before show route because app.js considering new as id hence ther is error for going on route listings/new
 
-//Route to save new data created by abouve route 
+//Route to save new data created by above route 
 //there are two method to get data inserted in form either by targeting each data like this := let{title, description,image,price,country, location}=req.body but it is long method we can do it simmple way just make all data in new.ejs obj of listing watch in new.ejs 
-app.post("/listings", async (req, res) => {
+app.post("/listings", wrapAsync(async (req, res,next) => {
     const newList = new Listing(req.body.listing);
     await newList.save();
-    res.redirect("/listings");
+    res.redirect("/listings");    
 })
+);  
 
 //Show Route
 app.get("/listings/:id", async (req, res) => {
@@ -91,6 +99,12 @@ app.delete("/listings/:id", async (req, res) => {
 //     console.log("Sample was Saved");
 //     res.send("Successful");
 // });
+
+//middleware to check for error
+app.use((err,req,res,next)=>{
+    res.send("Something went wrong")
+});
+
 
 app.listen(8080, () => {
     console.log("server is listening to port 8080");
