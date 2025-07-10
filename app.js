@@ -9,7 +9,7 @@ const methodOverride = require("method-override"); //use for changing form get/p
 const ejsMate = require("ejs-mate");
 const wrapAsync=require("./utils/wrapAsync.js"); //client side custome error handling
 const ExpressError=require("./utils/ExpressError.js");
-const {listingSchema} = require("/schema.js"); //server side error handling to check schema of server database using JOI
+const {listingSchema} = require("./schema.js"); //server side error handling to check schema of server database using JOI
 
 
 // establishing mongodb with try and catch
