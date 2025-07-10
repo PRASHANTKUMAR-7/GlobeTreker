@@ -14,6 +14,6 @@ const reviewSchema= new Schema({
     }
     });
 
-const Review = mongoose.model("Review", reviewSchema);
-module.exports=Review;
+const Reviews = mongoose.model("Reviews", reviewSchema);
+module.exports=Reviews;
 //this review will attack to listing menas 1 listing have multiple review. This show one to many relation model listing->reviews.

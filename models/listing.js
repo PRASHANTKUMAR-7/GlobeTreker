@@ -19,7 +19,12 @@ const listingSchema= new Schema({
       location: String,
       country: String,
     //adding review array which etablish one to many relation.
-      
+      reviews:[
+        {
+          type: Schema.Types.ObjectId,
+          ref:"Reviews"
+        },
+      ],
     });
 
 const Listing = mongoose.model("Listing", listingSchema);
