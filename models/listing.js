@@ -12,7 +12,7 @@ const listingSchema= new Schema({
         url: {
           type: String,
           default:
-            "https://media.istockphoto.com/id/825319778/photo/sunset-on-beach.jpg?s=1024x1024&w=is&k=20&c=afSwJc6Q1aJFG26lPxSsDIx2aQU2ofsFGu9cGO6klkM=",
+            "https://cdn.pixabay.com/photo/2023/03/03/10/41/hut-7827369_1280.jpg",
         },
       },
       price: Number,
