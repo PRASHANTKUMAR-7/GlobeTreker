@@ -3,14 +3,14 @@
 const express = require("express"); //adding express
 const app = express();
 const mongoose = require('mongoose'); //adding mongoose
-const Listing = require("./models/listing.js"); //mongodb Schema
+const Listing = require("./models/listing.js"); // lisiting mongodb Schema
 const path = require("path");
 const methodOverride = require("method-override"); //use for changing form get/post to delete/patch
 const ejsMate = require("ejs-mate");
 const wrapAsync=require("./utils/wrapAsync.js"); //client side custome error handling
 const ExpressError=require("./utils/ExpressError.js");
 const {listingSchema} = require("./schema.js"); //server side error handling to check schema of server database using JOI
-
+const Reviews = require("./models/review.js");// review mongodb Schema
 
 // establishing mongodb with try and catch
 main().then(() => {
@@ -133,7 +133,20 @@ app.delete("/listings/:id", wrapAsync(async (req, res) => {
     console.log(deletedListing);
     res.redirect("/listings");
 }));
+ 
+//We don't created a get route to access review b/c it get access by listing route
+// Route to save review
 
+app.post("/listings/:id/reviews",async(req,res)=>{
+    let listing= await Listing.findById(req.params.id);
+    let newReview=new Reviews(req.body.reviews);
+
+    listing.reviews.push(newReview);
+
+    await newReview.save();
+    await listing.save();
+     res.redirect("/listings");
+});
 
 
 
