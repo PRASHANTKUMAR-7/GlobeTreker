@@ -18,6 +18,8 @@ const listingSchema= new Schema({
       price: Number,
       location: String,
       country: String,
+    //adding review array which etablish one to many relation.
+      
     });
 
 const Listing = mongoose.model("Listing", listingSchema);
