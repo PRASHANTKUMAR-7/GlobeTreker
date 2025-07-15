@@ -39,19 +39,21 @@
                 <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE">
                     <button class="btn btn-dark offset-4">Delete</button>
                 </form>
-            </div>  
+            </div> 
+
+
             <div class="col-8 offset-2 mb-3">
                 <hr/>
-                <h4>Leave a Review</h4>
-                
-                <form action="/listings/<%= listing._id %>/reviews" method="POST"> 
-                    <div class="mb-3 mt-3">
+                <h4>Leave a Review</h4>         
+                <form action="/listings/<%= listing._id %>/reviews" method="POST" novalidate class="needs-validation">                     
+                    <div class="mb-3 mt-3">                        
                     <label for="rating" class="form-lable">Rating</label>
                     <input type="range" min="1" max="5" id="rating" name="reviews[rating]" class="form-range">
                     </div>
                     <div class="mb-3 mt-3">
                         <label for="comment" class="form-lable">Comments</label>
-                        <textarea name="reviews[comment]" id="comment" cols="20" rows="5" class="form-control"></textarea>
+                        <textarea name="reviews[comment]" id="comment" cols="20" rows="5" class="form-control" required></textarea>
+                        <div class="invalid-feedback">Please write some reviews</div>
                     </div>
                     <button class="btn btn-outline-dark">Submit</button>
                 </form>
@@ -60,3 +62,4 @@
     </body>
 
     <!-- </html> -->
+    // needs-vailidation logic is under public folder in js file 

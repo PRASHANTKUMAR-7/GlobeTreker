@@ -1,5 +1,6 @@
 //schema validation on server side using JOI 
 const Joi = require('joi');
+const Reviews = require('./models/review');
 
 module.exports.listingSchema = Joi.object({
   listing: Joi.object({
@@ -14,3 +15,12 @@ module.exports.listingSchema = Joi.object({
     }).required()
   }).required()
 });
+
+
+//Schema for validation of review for server side using joi 
+module.exports.reviewSchema=Joi.object({
+  Reviews:Joi.object({
+    rating: Joi.number().required(),
+    comment: Joi.string().required(),
+  }).required()
+})

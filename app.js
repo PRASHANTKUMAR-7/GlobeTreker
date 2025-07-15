@@ -9,7 +9,7 @@ const methodOverride = require("method-override"); //use for changing form get/p
 const ejsMate = require("ejs-mate");
 const wrapAsync=require("./utils/wrapAsync.js"); //client side custome error handling
 const ExpressError=require("./utils/ExpressError.js");
-const {listingSchema} = require("./schema.js"); //server side error handling to check schema of server database using JOI
+const {listingSchema,reviewSchema} = require("./schema.js"); //server side error handling to check schema of listing and review at server database using JOI
 const Reviews = require("./models/review.js");// review mongodb Schema
 
 // establishing mongodb with try and catch
@@ -40,7 +40,7 @@ app.get("/", (req, res) => {
     res.send("Hi, I am Root");
 });
 
-//converting JOI to middleware using funtion 
+//converting JOI to middleware using funtion  for listing valoidation 
 const validateListing=(req,res,next)=>{
     let{error}=listingSchema.validate(req.body);
     if(error){
@@ -53,6 +53,18 @@ const validateListing=(req,res,next)=>{
     }
 };
 
+//converting JOI to middleware using funtion  for review valoidation 
+const validatereview=(req,res,next)=>{
+    let{error}=reviewSchema.validate(req.body);
+    if(error){
+        //since the error is obj so we map it  below and use only usefull data from it 
+        let errMsg = error.details.map((el)=>el.message).join(",");
+        throw new ExpressError(400, errMsg);
+    }
+    else{
+        next();
+    }
+};
 
 //print all data on root route or It is Index Route
 app.get("/listings", async (req, res) => {
