@@ -149,7 +149,7 @@ app.delete("/listings/:id", wrapAsync(async (req, res) => {
 //We don't created a get route to access review b/c it get access by listing route
 // Route to save review
 
-app.post("/listings/:id/reviews",async(req,res)=>{
+app.post("/listings/:id/reviews",validatereview, wrapAsync(async(req,res)=>{
     let listing= await Listing.findById(req.params.id);
     let newReview=new Reviews(req.body.reviews);
 
@@ -158,7 +158,7 @@ app.post("/listings/:id/reviews",async(req,res)=>{
     await newReview.save();
     await listing.save();
      res.redirect("/listings");
-});
+}));
 
 
 
