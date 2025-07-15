@@ -19,7 +19,7 @@ module.exports.listingSchema = Joi.object({
 
 //Schema for validation of review for server side using joi 
 module.exports.reviewSchema=Joi.object({
-  Reviews:Joi.object({
+  reviews:Joi.object({
     rating: Joi.number().required().min(1).max(5),
     comment: Joi.string().required(),
   }).required()
