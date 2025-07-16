@@ -11,7 +11,7 @@
             <div class="col-8 offset-2 ">
                 <h3><%= listing.title %>:</h3>
             </div>
-            <div class="card col-6 offset-2 show-card">
+            <div class="card col-6 offset-2 show-card listing-card">
                 <img src="<%=listing.image.url%>" class="card-img-top show-image" alt="listing-image">
 
                 <div class="card-body">
@@ -58,13 +58,19 @@
                     <button class="btn btn-outline-dark">Submit</button>
                 </form>
                 <hr/>
-                <h4>All Reviews</h4>
-                <ul>
+                <p><b>All Reviews</b></p>
+                <div class="row">
                     <% for(review of listing.reviews){%>
-                        <li><%=review.comment%>, <%=review.rating%> Stars</li>
+                    <div class="card col-5 ms-3 mb-3 ">                    
+                        <div class="card-body">
+                            <h5 class="card-title">username</h5>
+                            <p class="card-text"><%=review.comment%></p>
+                            <p class="card-text"><%=review.rating%> Stars</p>
+                        </div>
+                    </div>
                     <%}%>
-                </ul>
-            </div>          
+                </div>          
+            </div>
         </div>
     </body>
 
