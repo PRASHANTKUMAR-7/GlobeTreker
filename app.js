@@ -118,7 +118,7 @@ app.post("/listings",
 //Show Route
 app.get("/listings/:id",  wrapAsync(async (req, res) => {
     let { id } = req.params;
-    const listing = await Listing.findById(id);
+    const listing = await Listing.findById(id).populate("reviews"); //populate is use to get data by array of ids
     res.render("listings/show.ejs", { listing });
 }));
 
