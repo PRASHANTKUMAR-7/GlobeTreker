@@ -8,7 +8,7 @@
 <% layout("/layouts/boilerplate") %> <!-- Using ejs-mate layout and needs-vailidation logic is under public folder in js file which is use in validation for server side in liating and reviews -->
     <body>
         <div class="row mt-3">
-            <div class="col-8 offset-2 ">
+            <div class="col-8 offset-2">
                 <h3><%= listing.title %>:</h3>
             </div>
             <div class="card col-6 offset-2 show-card listing-card">
@@ -59,17 +59,21 @@
                 </form>
                 <hr/>
                 <p><b>All Reviews</b></p>
-                <div class="row">
-                    <% for(review of listing.reviews){%>
-                    <div class="card col-5 ms-3 mb-3 ">                    
-                        <div class="card-body">
-                            <h5 class="card-title">username</h5>
-                            <p class="card-text"><%=review.comment%></p>
-                            <p class="card-text"><%=review.rating%> Stars</p>
-                        </div>
-                    </div>
-                    <%}%>
-                </div>          
+<div class="row">
+    <% for (review of listing.reviews) { %>
+    <div class="card col-5 mb-3">                    
+        <div class="card-body">
+            <h5 class="card-title">username</h5>
+            <p class="card-text"><%= review.comment %></p>
+            <p class="card-text"><%= review.rating %> Stars</p>
+        </div>
+        <form class="mt-2 mb-2" method="POST" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
+            <button class="btn btn-dark">Delete</button>
+        </form>
+    </div>
+    <% } %>
+</div>
+          
             </div>
         </div>
     </body>

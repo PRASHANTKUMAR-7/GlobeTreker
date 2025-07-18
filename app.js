@@ -160,6 +160,17 @@ app.post("/listings/:id/reviews",validatereview, wrapAsync(async(req,res)=>{
      res.redirect("/listings");
 }));
 
+//Deleting Review Route
+app.delete("/listings/:id/reviews/:reviewId", 
+    wrapAsync(async(req,res)=>{
+        let {id, reviewId}=req.params;
+        await Listing.findByIdAndUpdate(id, {$pull:{reviews:reviewId}});
+        await Review.findByIdAndDelete(reviewId);
+
+        res.redirect(`/listing/${id}`);
+    })
+);
+
 
 
 //creating a sample Listing 
@@ -188,9 +199,14 @@ app.use((err, req, res, next) => {
 
 // if there is error in above router and then our middleware error handler will work 
 // but is router doesn't match or doesn't exit then then we go for a universal error handling .
+// app.all(/.*/, (req, res, next) => {
+//   next(new ExpressError(404,"Page Not Found"));
+// });
 app.all(/.*/, (req, res, next) => {
-  next(new ExpressError(404,"Page Not Found"));
+  console.log(`404 on ${req.method} ${req.originalUrl}`);
+  next(new ExpressError(404, "Page Not Found"));
 });
+
 
 app.listen(8080, () => { 
     console.log("server is listening to port 8080");
