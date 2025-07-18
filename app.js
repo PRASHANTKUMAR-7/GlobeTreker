@@ -141,7 +141,7 @@ app.put("/listings/:id",
 //Route to delete the list
 app.delete("/listings/:id", wrapAsync(async (req, res) => {
     let { id } = req.params;
-    let deletedListing = await Listing.findByIdAndDelete(id);
+    let deletedListing = await Listing.findByIdAndDelete(id); //when findByIdDelete call the the middleware we used in schema section in listing.js it will get executed and deleted all reviews.
     console.log(deletedListing);
     res.redirect("/listings");
 }));
