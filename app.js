@@ -11,6 +11,7 @@ const wrapAsync=require("./utils/wrapAsync.js"); //client side custome error han
 const ExpressError=require("./utils/ExpressError.js");
 const {listingSchema,reviewSchema} = require("./schema.js"); //server side error handling to check schema of listing and review at server database using JOI
 const Reviews = require("./models/review.js");// review mongodb Schema
+const listings=require("./routers/listing.js")
 
 // establishing mongodb with try and catch
 main().then(() => {
@@ -40,18 +41,14 @@ app.get("/", (req, res) => {
     res.send("Hi, I am Root");
 });
 
-//converting JOI to middleware using funtion  for listing valoidation 
-const validateListing=(req,res,next)=>{
-    let{error}=listingSchema.validate(req.body);
-    if(error){
-        //since the error is obj so we map it  below and use only use full data from it 
-        let errMsg = error.details.map((el)=>el.message).join(",");
-        throw new ExpressError(400, errMsg);
-    }
-    else{
-        next();
-    }
-};
+
+//--------------------Route of same type are used using express route-----------------
+app.use("/listings",listings);
+
+
+
+
+
 
 //converting JOI to middleware using funtion  for review valoidation 
 const validatereview=(req,res,next)=>{
