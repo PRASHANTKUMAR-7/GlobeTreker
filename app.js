@@ -3,15 +3,22 @@
 const express = require("express"); //adding express
 const app = express();
 const mongoose = require('mongoose'); //adding mongoose
+
 const Listing = require("./models/listing.js"); // lisiting mongodb Schema
+
 const path = require("path");
 const methodOverride = require("method-override"); //use for changing form get/post to delete/patch
 const ejsMate = require("ejs-mate");
+
 const wrapAsync=require("./utils/wrapAsync.js"); //client side custome error handling
+
 const ExpressError=require("./utils/ExpressError.js");
+
 const {listingSchema,reviewSchema} = require("./schema.js"); //server side error handling to check schema of listing and review at server database using JOI
 const Reviews = require("./models/review.js");// review mongodb Schema
-const listings=require("./routers/listing.js")
+
+const listings=require("./routers/listing.js");
+const reviews=require("./routers/review.js");
 
 // establishing mongodb with try and catch
 main().then(() => {
@@ -44,24 +51,13 @@ app.get("/", (req, res) => {
 
 //--------------------Route of same type are used using express route-----------------
 app.use("/listings",listings);
+app.use("/listing/:id/reviews",reviews)
 
 
 
 
 
 
-//converting JOI to middleware using funtion  for review valoidation 
-const validatereview=(req,res,next)=>{
-    let{error}=reviewSchema.validate(req.body);
-    if(error){
-        //since the error is obj so we map it  below and use only usefull data from it 
-        let errMsg = error.details.map((el)=>el.message).join(",");
-        throw new ExpressError(400, errMsg);
-    }
-    else{
-        next();
-    }
-};
 
 
 //*******************************************************************************************************************//
@@ -153,28 +149,29 @@ const validatereview=(req,res,next)=>{
 
 //We don't created a get route to access review b/c it get access by listing route
 // Route to save review
+//Route is commented and used in express route
 
-app.post("/listings/:id/reviews",validatereview, wrapAsync(async(req,res)=>{
-    let listing= await Listing.findById(req.params.id);
-    let newReview=new Reviews(req.body.reviews);
+// app.post("/listings/:id/reviews",validatereview, wrapAsync(async(req,res)=>{
+//     let listing= await Listing.findById(req.params.id);
+//     let newReview=new Reviews(req.body.reviews);
 
-    listing.reviews.push(newReview);
+//     listing.reviews.push(newReview);
 
-    await newReview.save();
-    await listing.save();
-     res.redirect("/listings");
-}));
+//     await newReview.save();
+//     await listing.save();
+//      res.redirect("/listings");
+// }));
 
-//Deleting Review Route
-app.delete("/listings/:id/reviews/:reviewId", 
-    wrapAsync(async(req,res)=>{
-        let {id, reviewId}=req.params;
-        await Listing.findByIdAndUpdate(id, {$pull:{reviews:reviewId}});
-        await Reviews.findByIdAndDelete(reviewId);
+// //Deleting Review Route
+// app.delete("/listings/:id/reviews/:reviewId", 
+//     wrapAsync(async(req,res)=>{
+//         let {id, reviewId}=req.params;
+//         await Listing.findByIdAndUpdate(id, {$pull:{reviews:reviewId}});
+//         await Reviews.findByIdAndDelete(reviewId);
 
-        res.redirect(`/listings/${id}`);
-    })
-);
+//         res.redirect(`/listings/${id}`);
+//     })
+// );
 
 
 
