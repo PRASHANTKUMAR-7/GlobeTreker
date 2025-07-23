@@ -1,10 +1,10 @@
 const express= require("express");
-const router= express.Router();
+const router= express.Router({mergeParams:true});
 const wrapAsync=require("../utils/wrapAsync.js"); //client side custome error handling
 const ExpressError=require("../utils/ExpressError.js");
 const {listingSchema,reviewSchema} = require("../schema.js"); //server side error handling to check schema of listing and review at server database using JOI
 const Reviews = require("../models/review.js");// review mongodb Schema
-const listings=require("./listing.js");
+const Listing=require("../models/listing.js");
 
 
 //converting JOI to middleware using funtion  for review valoidation 
@@ -19,8 +19,6 @@ const validatereview=(req,res,next)=>{
         next();
     }
 };
-
-
 
 router.post("/",validatereview, wrapAsync(async(req,res)=>{
     let listing= await Listing.findById(req.params.id);

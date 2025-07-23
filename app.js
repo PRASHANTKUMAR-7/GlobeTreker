@@ -51,7 +51,7 @@ app.get("/", (req, res) => {
 
 //--------------------Route of same type are used using express route-----------------
 app.use("/listings",listings);
-app.use("/listing/:id/reviews",reviews)
+app.use("/listings/:id/reviews",reviews); 
 
 
 
@@ -195,7 +195,7 @@ app.use("/listing/:id/reviews",reviews)
 app.use((err, req, res, next) => {
     const { statusCode = 500, message = "Something went wrong!" } = err;
     // res.status(statusCode).send(message);
-    res.status(statusCode).render("error.ejs",{message});
+    res.status(statusCode).render("error.ejs", { err });
 });
 
 
