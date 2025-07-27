@@ -64,6 +64,7 @@ router.post("/",
     // }
     const newList = new Listing(req.body.listing);
     await newList.save();
+    req.flash("success","New Listing Created!");//creating a flash msg after creating new list of place
     res.redirect("/listings");    
 })
 );  

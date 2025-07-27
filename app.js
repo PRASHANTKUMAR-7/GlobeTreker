@@ -20,6 +20,7 @@ const Reviews = require("./models/review.js");// review mongodb Schema
 const listings=require("./routers/listing.js");
 const reviews=require("./routers/review.js");
 const session= require("express-session");//require session 
+const flash=require("connect-flash");
 
 // establishing mongodb with try and catch
 main().then(() => {
@@ -56,6 +57,8 @@ const sessionOptions={
 };
 
 app.use(session(sessionOptions));
+app.use(flash()); //make sure always use session and flash before creting route
+
 
 
 
