@@ -56,16 +56,21 @@ const sessionOptions={
     }
 };
 
-app.use(session(sessionOptions));
-app.use(flash()); //make sure always use session and flash before creting route
-
-
-
 
 // this is the root route
 app.get("/", (req, res) => {
     res.send("Hi, I am Root");
 });
+app.use(session(sessionOptions));
+app.use(flash()); //make sure always use session and flash before creating route
+ app.use((req,res,next)=>{
+    res.locals.success= req.flash("success"); //any msg with success(flash key) came goes to res.locals
+    next(); //make sure to call next() to move on oherwise we stuck here
+ });
+
+
+
+
 
 
 //--------------------Route of same type are used using express route-----------------
