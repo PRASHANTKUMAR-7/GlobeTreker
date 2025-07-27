@@ -19,6 +19,7 @@ const Reviews = require("./models/review.js");// review mongodb Schema
 
 const listings=require("./routers/listing.js");
 const reviews=require("./routers/review.js");
+const session= require("express-session");//require session 
 
 // establishing mongodb with try and catch
 main().then(() => {
@@ -42,6 +43,21 @@ app.use(express.static(path.join(__dirname, "/public")));//use to accsess to sta
 // Required when sending requests with 'Content-Type: application/json'
 // e.g., in tools like Hoppscotch or Postman, or from React/JS frontend using fetch or axios
 app.use(express.json());
+
+const sessionOptions={
+    secret:"encryptedText",
+    resave:false,
+    saveUninitialized:true,
+    cookie:{
+        expirre: Date.now() + 7 * 24 * 60 * 60 * 1000, //cookies willget expire after 7 days and time is given in mm sec.
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+        httpOnly:true, //use for security peerpose like defend from crossscripting attack
+    }
+};
+
+app.use(session(sessionOptions));
+
+
 
 // this is the root route
 app.get("/", (req, res) => {
