@@ -1,6 +1,7 @@
 <% if(success && success.length){%> 
     <!-- we use success && success.length because sucess give a empty array even there is no data of crating a new listing therefore we use success.length because if there is data then array must have length   -->
-<div class="alert alert-success" role="alert">
-  <%= Success %>
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  <%= success %>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
 </div>
 <% }%>
