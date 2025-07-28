@@ -9,7 +9,7 @@
 <!-- flash structure for error -->
  <% if(error && error.length){%> 
     <!-- we use erro && error.length because error give a empty array even there is no data of crating a new listing therefore we use error.length because if there is data then array must have some length   -->
-<div class="alert alert-success alert-dismissible fade show col-6 offset-3" role="alert">
+<div class="alert alert-danger alert-dismissible fade show col-6 offset-3" role="alert">
   <%= success %>
   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
