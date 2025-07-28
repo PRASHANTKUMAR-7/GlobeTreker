@@ -89,6 +89,7 @@ router.put("/:id",
     wrapAsync(async (req, res) => {
     let { id } = req.params;
     await Listing.findByIdAndUpdate(id, { ...req.body.listing }); //since Listing is a js obj which has all parameter of db
+    req.flash("success","List Updated!");//creating a flash msg after updating list
     res.redirect(`/listings/${id}`); //this will redirect on Show.ejs
 }));
 
