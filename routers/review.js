@@ -36,10 +36,10 @@ router.post("/",validatereview, wrapAsync(async(req,res)=>{
 router.delete("/:reviewId", 
     wrapAsync(async(req,res)=>{
         let {id, reviewId}=req.params;
-        await Listing.findByIdAndUpdate(id, {$pull:{reviews:reviewId}});
+        await Listing.findByIdAndUpdate(id, { $pull: {reviews:reviewId}});
         await Reviews.findByIdAndDelete(reviewId);
         req.flash("success","Review Deleted!");//creating a flash msg after creating new review of place
-        res.redirect(`/listings/${id}`);
+        res.redirect(`/listings`);
     })
 );
 

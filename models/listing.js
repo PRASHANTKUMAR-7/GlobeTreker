@@ -31,7 +31,7 @@ const listingSchema= new Schema({
     //mongoose middleware used to delete all reviews when the particular list is deleted
     listingSchema.post("findOneAndDelete", async(listing)=>{
       if(listing){
-      await Review.deleteMany.deleteMany({_id: {$in: listing.reviews}});
+      await Review.deleteMany({_id: {$in: listing.reviews}});
       }
     });
 
