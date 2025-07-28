@@ -65,7 +65,8 @@ app.use(session(sessionOptions));
 app.use(flash()); //make sure always use session and flash before creating route
 
 app.use((req,res,next)=>{
-    res.locals.success= req.flash("success"); //any msg with success(flash key) came goes to res.locals
+    res.locals.success= req.flash("success"); //any msg with success(flash key) came goes to res.locals with its msg
+    res.locals.error=req.flash("error");//any msg with error(flash key) came goes to res.locals with its msg
     next(); //make sure to call next() to move on oherwise we stuck here
 });
 
