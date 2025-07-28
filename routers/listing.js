@@ -97,6 +97,7 @@ router.delete("/:id", wrapAsync(async (req, res) => {
     let { id } = req.params;
     let deletedListing = await Listing.findByIdAndDelete(id); //when findByIdDelete call the the middleware we used in schema section in listing.js it will get executed and deleted all reviews.
     console.log(deletedListing);
+    req.flash("success","Listing Deleted!");//creating a flash msg after deleting new list of place
     res.redirect("/listings");
 }));
 
