@@ -75,7 +75,7 @@ router.get("/:id",  wrapAsync(async (req, res) => {
     const listing = await Listing.findById(id).populate("reviews"); //populate is use to get data by array of ids
     if(!listing){
          req.flash("error","List does not exit!");//creating a flash msg of error when list does not exit
-         res.redirect("/listings")
+         return res.redirect("/listings")
     }
     res.render("listings/show.ejs", { listing });
 }));
