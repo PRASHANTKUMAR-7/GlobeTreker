@@ -21,6 +21,10 @@ const listings=require("./routers/listing.js");
 const reviews=require("./routers/review.js");
 const session= require("express-session");//require session 
 const flash=require("connect-flash");
+//from here 
+const passport=require("passport");
+const LocalStrategy=require("passport-local")
+const User= require("../models/user.js");
 
 // establishing mongodb with try and catch
 main().then(() => {
@@ -61,13 +65,30 @@ const sessionOptions={
 app.get("/", (req, res) => {
     res.send("Hi, I am Root");
 });
+
 app.use(session(sessionOptions));
 app.use(flash()); //make sure always use session and flash before creating route
+
+//we use passport after session because we dont want user to login again and again on esch page
+app.use(passport.initialize());//we have to initialize passport before use
+app.use(passport.session());//passport session use for provide ability to identify user as they browse from any page
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 app.use((req,res,next)=>{
     res.locals.success= req.flash("success"); //any msg with success(flash key) came goes to res.locals with its msg
     res.locals.error=req.flash("error");//any msg with error(flash key) came goes to res.locals with its msg
     next(); //make sure to call next() to move on oherwise we stuck here
+});
+
+app.get("/demouser", async(req,res)=>{
+ let fakeUser= new User({
+    email:"abc@gmail.com",
+    username:"motupatalu",
+ });
+ let registeredUser= await User.register(fakeUser,"userpassword");
+ res.send(registeredUser);
 });
 
 
