@@ -12,3 +12,5 @@ const userSchema= new Schema({
         //schema created for database
     }
 });
+
+User.plugin(passportlocalmongoose);
