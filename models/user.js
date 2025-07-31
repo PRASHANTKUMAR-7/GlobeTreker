@@ -14,3 +14,4 @@ const userSchema= new Schema({
 });
 
 User.plugin(passportlocalmongoose);
+module.exports=mongoose.model('User',userSchema);
