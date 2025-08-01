@@ -7,11 +7,18 @@ router.get("/signup",(req,res)=>{
     res.render("users/signup.ejs");
 });
 router.post("/signup",wrapAsync(async(req,res)=>{ //we async with (req,res) because it make changes in database that can take time so to handle this we use async
+    try{
     let {username,email,password}=req.body;
     const newUser= new User({email,username});
     const registerUser= await User.register(newUser,password);
     req.flash("success","Welcome to GlobeTreker");
     res.redirect("/listings");
+    }
+    catch(e){
+        req.flash("error", e.message);
+        res.redirect("/signup");
+
+    }
 }));
 
 
