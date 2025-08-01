@@ -9,9 +9,8 @@ router.post("/signup",async(req,res)=>{ //we async with (req,res) because it mak
     let {username,email,password}=req.body;
     const newUser= new User({email,username});
     const registerUser= await User.register(newUser,password);
-    console.log(registerUser);
     req.flash("success","Welcome to GlobeTreker");
-    res.redirect("/listing");
+    res.redirect("/listings");
 });
 
 
