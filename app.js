@@ -84,14 +84,15 @@ app.use((req,res,next)=>{
     next(); //make sure to call next() to move on oherwise we stuck here
 });
 
-app.get("/demouser", async(req,res)=>{
- let fakeUser= new User({
-    email:"abc@gmail.com",
-    username:"motupatalu",
- });
- let registeredUser= await User.register(fakeUser,"userpassword");
- res.send(registeredUser);
-});
+// //adding a fake user
+// app.get("/demouser", async(req,res)=>{
+//  let fakeUser= new User({
+//     email:"abc@gmail.com",
+//     username:"motupatalu",
+//  });
+//  let registeredUser= await User.register(fakeUser,"userpassword");
+//  res.send(registeredUser);
+// });
 
 
 
