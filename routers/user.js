@@ -30,7 +30,8 @@ router.post("/login",
         {failureRedirect: '/login',
             failureFlash: true}),
             async(req,res)=>{
-                res.send("Welcome To GlobeTreker");
+                req.flash("success","Welcome To GlobeTreker");
+                res.redirect("/listings");
 
 });
 
