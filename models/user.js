@@ -13,5 +13,5 @@ const userSchema= new Schema({
     }
 });
 //plugin is use becuse it automatically add/implement salting, hashing, username and userpassword. 
-User.plugin(passportlocalmongoose);
+userSchema.plugin(passportlocalmongoose);
 module.exports=mongoose.model('User',userSchema);

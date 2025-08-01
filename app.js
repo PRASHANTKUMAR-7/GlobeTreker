@@ -17,14 +17,16 @@ const ExpressError=require("./utils/ExpressError.js");
 const {listingSchema,reviewSchema} = require("./schema.js"); //server side error handling to check schema of listing and review at server database using JOI
 const Reviews = require("./models/review.js");// review mongodb Schema
 
-const listings=require("./routers/listing.js");
-const reviews=require("./routers/review.js");
+const listingsRouter=require("./routers/listing.js");
+const reviewsRouter=require("./routers/review.js");
+const usersRouter=require("./routers/user.js");
 const session= require("express-session");//require session 
 const flash=require("connect-flash");
-//from here 
+
+//from here we use passport for authentication
 const passport=require("passport");
 const LocalStrategy=require("passport-local")
-const User= require("../models/user.js");
+const User= require("./models/user.js");
 
 // establishing mongodb with try and catch
 main().then(() => {
@@ -97,8 +99,9 @@ app.get("/demouser", async(req,res)=>{
 
 
 //--------------------Route of same type are used using express route-----------------
-app.use("/listings",listings);
-app.use("/listings/:id/reviews",reviews); 
+app.use("/listings",listingsRouter);
+app.use("/listings/:id/reviews",reviewsRouter); 
+app.use("/",usersRouter);
 
 
 
