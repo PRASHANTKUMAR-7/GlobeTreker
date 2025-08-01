@@ -32,7 +32,6 @@ router.post("/login",
             async(req,res)=>{
                 req.flash("success","Welcome To GlobeTreker");
                 res.redirect("/listings");
-
 });
 
 

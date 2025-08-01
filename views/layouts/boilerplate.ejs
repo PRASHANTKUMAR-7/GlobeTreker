@@ -14,17 +14,21 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
 </head>
-<body>
-    <%- include("../includes/navbar.ejs")%>
-    
-    <div class="container">
-        <%- include("../includes/flash.ejs")%>
-        <%- body -%> 
-        <!-- this whole page react as the html page for each page where we use it menas everything written here are use except the body contnent b/c it here body data is given by other ejs page where we use ejs-mate  -->
-    </div>
-    <%- include("../includes/footer.ejs")%>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+<body class="d-flex flex-column min-vh-100">
+    <%- include("../includes/navbar.ejs") %>
+
+    <main class="flex-grow-1">
+        <div class="container">
+            <%- include("../includes/flash.ejs") %>
+            <%- body -%>
+        </div>
+    </main>
+
+    <%- include("../includes/footer.ejs") %>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="/js/script.js"></script>
 </body>
+
 </html>
