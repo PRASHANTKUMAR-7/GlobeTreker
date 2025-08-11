@@ -23,6 +23,7 @@ const usersRouter=require("./routers/user.js");
 const session= require("express-session");//require session 
 const flash = require('express-flash');
 
+
 //from here we use passport for authentication
 const passport=require("passport");
 const LocalStrategy=require("passport-local")

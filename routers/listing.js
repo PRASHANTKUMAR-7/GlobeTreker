@@ -4,6 +4,7 @@ const wrapAsync=require("../utils/wrapAsync.js"); //client side custome error ha
 const {listingSchema,reviewSchema} = require("../schema.js"); //server side error handling to check schema of listing and review at server database using JOI
 const ExpressError=require("../utils/ExpressError.js");
 const Listing = require("../models/listing.js"); // lisiting mongodb Schema
+const {isLoggedIn}=require("../middleware.js");
 
 //converting JOI to middleware using funtion  for listing valoidation 
 const validateListing=(req,res,next)=>{
@@ -26,7 +27,7 @@ router.get("/", async (req, res) => {
 });
 
 //Route to Create new Listing
-router.get("/new",  wrapAsync(async (req, res) => {
+router.get("/new", isLoggedIn, wrapAsync(async (req, res) => {
     // if(!req.isAuthenticated()){
     //     req.flash("error","You must be logged in to create listing");
     //     return res.redirect("/login");
@@ -37,7 +38,7 @@ router.get("/new",  wrapAsync(async (req, res) => {
 
 //Route to save new data created by above route 
 //there are two method to get data inserted in form either by targeting each data like this := let{title, description,image,price,country, location}=req.body but it is long method we can do it simmple way just make all data in new.ejs obj of listing watch in new.ejs 
-router.post("/", 
+router.post("/",isLoggedIn, 
     validateListing, //first check the validateListing then all 
 
     wrapAsync(async (req, res,next) => {
@@ -85,7 +86,7 @@ router.get("/:id",  wrapAsync(async (req, res) => {
 }));
 
 //Route for edit the listing
-router.get("/:id/edit", wrapAsync(async (req, res) => {
+router.get("/:id/edit",isLoggedIn, wrapAsync(async (req, res) => {
     let { id } = req.params;
     const listing = await Listing.findById(id);
     if(!listing){
@@ -95,8 +96,8 @@ router.get("/:id/edit", wrapAsync(async (req, res) => {
     res.render("listings/edit.ejs", { listing });
 }));
 
-//Route which take inout from edit.ejs and save it to database "Update Route"
-router.put("/:id",
+//Route which take input from edit.ejs and save it to database "Update Route"
+router.put("/:id",isLoggedIn,
     validateListing,
     wrapAsync(async (req, res) => {
     let { id } = req.params;
@@ -106,7 +107,7 @@ router.put("/:id",
 }));
 
 //Route to delete the list
-router.delete("/:id", wrapAsync(async (req, res) => {
+router.delete("/:id",isLoggedIn, wrapAsync(async (req, res) => {
     let { id } = req.params;
     let deletedListing = await Listing.findByIdAndDelete(id); //when findByIdDelete call the the middleware we used in schema section in listing.js it will get executed and deleted all reviews.
     console.log(deletedListing);

@@ -33,6 +33,15 @@ router.post("/login",
                 req.flash("success","Welcome To GlobeTreker");
                 res.redirect("/listings");
 });
-
+//log out route
+router.get("/logout",(req,res,next)=>{
+    req.logout((err)=>{
+        if(err){
+            return next(err);
+        }
+        req.flash("success","You are logged out!");
+        res.redirect("/listings")
+    });
+});
 
 module.exports=router;
