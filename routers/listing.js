@@ -27,10 +27,10 @@ router.get("/", async (req, res) => {
 
 //Route to Create new Listing
 router.get("/new",  wrapAsync(async (req, res) => {
-    if(!req.isAuthenticated()){
-        req.flash("error","You must be logged in to create listing");
-        return res.redirect("/login");
-    }
+    // if(!req.isAuthenticated()){
+    //     req.flash("error","You must be logged in to create listing");
+    //     return res.redirect("/login");
+    // } this is going to use ad middleware becuse it will use several placea like delete/edit listing
     res.render("listings/new.ejs");
 
 })); // we puth this route before show route because app.js considering new as id hence ther is error for going on route listings/new
