@@ -255,6 +255,7 @@ app.use((err, req, res, next) => {
 // app.all(/.*/, (req, res, next) => {
 //   next(new ExpressError(404,"Page Not Found"));
 // });
+app.get('/favicon.ico', (req, res) => res.status(204)); //to handle favicon.ico file error
 app.all(/.*/, (req, res, next) => {
   console.log(`404 on ${req.method} ${req.originalUrl}`);
   next(new ExpressError(404, "Page Not Found"));
