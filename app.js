@@ -21,7 +21,7 @@ const listingsRouter=require("./routers/listing.js");
 const reviewsRouter=require("./routers/review.js");
 const usersRouter=require("./routers/user.js");
 const session= require("express-session");//require session 
-const flash=require("connect-flash");
+const flash = require('express-flash');
 
 //from here we use passport for authentication
 const passport=require("passport");

@@ -11,10 +11,10 @@
   "description": "",
   "dependencies": {
     "animate.css": "^4.1.1",
-    "connect-flash": "^0.1.1",
     "ejs": "^3.1.10",
     "ejs-mate": "^4.0.0",
     "express": "^5.1.0",
+    "express-flash": "^0.0.2",
     "express-session": "^1.18.2",
     "joi": "^17.13.3",
     "method-override": "^3.0.0",
