@@ -11,8 +11,13 @@ router.post("/signup",wrapAsync(async(req,res)=>{ //we async with (req,res) beca
     let {username,email,password}=req.body;
     const newUser= new User({email,username});
     const registerUser= await User.register(newUser,password);
-    req.flash("success","Welcome to GlobeTreker");
-    res.redirect("/listings");
+    req.login(registerUser,(err)=>{
+        if(err){
+            return next(err);
+        }
+        req.flash("success","You are logged out!");
+        res.redirect("/listings")
+        });
     }
     catch(e){
         req.flash("error", e.message);
