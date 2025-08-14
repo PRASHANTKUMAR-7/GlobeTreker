@@ -39,7 +39,10 @@ router.post("/login",
             failureFlash: true}),
             async(req,res)=>{
                 req.flash("success","Welcome To GlobeTreker");
-                res.redirect(res.locals.redirectUrl);
+                 // ✅ Fallback to a safe route if no redirectUrl was saved
+                const redirectUrl = res.locals.redirectUrl || "/listings";
+                delete req.session.redirectUrl; // clear session value
+                res.redirect(redirectUrl);
 });
 //log out route
 router.get("/logout",(req,res,next)=>{
