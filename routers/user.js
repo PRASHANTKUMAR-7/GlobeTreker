@@ -2,7 +2,9 @@ const express= require("express");
 const router= express.Router();
 const User=require("../models/user.js");
 const wrapAsync = require("../utils/wrapAsync.js");
-const passport= require("passport")
+const passport= require("passport");
+const { saveRedirectUrl } = require("../middleware.js");
+
 router.get("/signup",(req,res)=>{
     res.render("users/signup.ejs");
 });
@@ -11,7 +13,7 @@ router.post("/signup",wrapAsync(async(req,res)=>{ //we async with (req,res) beca
     let {username,email,password}=req.body;
     const newUser= new User({email,username});
     const registerUser= await User.register(newUser,password);
-    req.login(registerUser,(err)=>{
+    req.login(registerUser,(err)=>{ //if a user got signed up then it automatically logged in 
         if(err){
             return next(err);
         }
@@ -31,12 +33,13 @@ router.get("/login",(req,res)=>{
     res.render("users/login.ejs");
 });
 router.post("/login",
+    saveRedirectUrl,//to redirect the user from that route/page from where it came for login using locals variables and middleware
     passport.authenticate("local",
         {failureRedirect: '/login',
             failureFlash: true}),
             async(req,res)=>{
                 req.flash("success","Welcome To GlobeTreker");
-                res.redirect(req.session.redirectUrl);
+                res.redirect(res.locals.redirectUrl);
 });
 //log out route
 router.get("/logout",(req,res,next)=>{
