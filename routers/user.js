@@ -36,7 +36,7 @@ router.post("/login",
             failureFlash: true}),
             async(req,res)=>{
                 req.flash("success","Welcome To GlobeTreker");
-                res.redirect("/listings");
+                res.redirect(req.session.redirectUrl);
 });
 //log out route
 router.get("/logout",(req,res,next)=>{
