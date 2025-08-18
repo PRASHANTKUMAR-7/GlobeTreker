@@ -26,6 +26,10 @@ const listingSchema= new Schema({
           ref:"Reviews"
         },
       ],
+      owner:{
+        type: Schema.Types.ObjectId,
+          ref:"User",
+      }
     });
 
     //mongoose middleware used to delete all reviews when the particular list is deleted
