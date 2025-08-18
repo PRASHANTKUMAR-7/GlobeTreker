@@ -15,6 +15,7 @@ async function main() {
 //first we delete all intial data in database 
 const initDB = async()=>{
     await Listing.deleteMany({});
+    // initData.data=initData.data.map((obj)=>({...obj,owner:""}))
     await Listing.insertMany(initData.data);//since initData is self obj so we extract data from it.
     console.log("data was Initialized");
 };

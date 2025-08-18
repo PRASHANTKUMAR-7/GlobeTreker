@@ -17,7 +17,7 @@ router.post("/signup",wrapAsync(async(req,res)=>{ //we async with (req,res) beca
         if(err){
             return next(err);
         }
-        req.flash("success","You are logged out!");
+        req.flash("success","You are logged In!");
         res.redirect("/listings")
         });
     }
