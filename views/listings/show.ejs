@@ -16,7 +16,7 @@
 
                 <div class="card-body">
                     <p class="card-text">
-                        <br />
+                         <Owned class="card-text">Owned By: <%= listing.owner.username %></p>
                             <%= listing.description %>
                         <br />
                             <% if (listing.price !=null && typeof listing.price==="number" ) { %>
