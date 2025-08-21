@@ -56,3 +56,15 @@ module.exports.isOwner=async(req,res,next)=>{
     }
     next();
 };
+
+
+//middleware to protect review from editing and deleting from unknown user(only owner can do means the creater)
+module.exports.isReviewAuthor=async(req,res,next)=>{
+    let { id,reviewId } = req.params;
+    let review= await Review.findById(reviewId);
+    if(!review.author._id.equals(res.locals.currUser._id)){ //logic to check weather the user is same who wants to edit=owner 
+        req.flash("error","You arren't the author of this review");
+         return res.redirect(`/listings/${id}`);
+    }
+    next();
+};
