@@ -1,7 +1,5 @@
 # 🌍 GlobeTreker – Full-Stack Travel Campground App
 
-🌍 Overview
-
 GlobeTreker is a full-stack travel campground application 🏕️✨ that allows users to:
 
 🌐 Explore campgrounds around the world
