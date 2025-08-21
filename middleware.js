@@ -15,6 +15,19 @@ module.exports.validateListing=(req,res,next)=>{
     }
 };
 
+//converting JOI to middleware using funtion  for review valoidation 
+module.exports.validatereview=(req,res,next)=>{
+    let{error}=reviewSchema.validate(req.body);
+    if(error){
+        //since the error is obj so we map it  below and use only usefull data from it 
+        let errMsg = error.details.map((el)=>el.message).join(",");
+        throw new ExpressError(400, errMsg);
+    }
+    else{
+        next();
+    }
+};
+
 module.exports.isLoggedIn=(req,res,next)=>{
 if(!req.isAuthenticated()){
     req.session.redirectUrl = req.originalUrl; // ✅ correct spelling
