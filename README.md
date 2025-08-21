@@ -1,7 +1,16 @@
 # 🌍 GlobeTreker – Full-Stack Travel Campground App
 
-GlobeTreker (inspired by **WanderLust**) is a **full-stack web application** that allows users to explore, create, and review campgrounds around the world.
-It’s built with the **MERN-style stack (MongoDB, Express, Node.js)** and uses **EJS, HTML, and CSS** for dynamic and responsive front-end rendering.
+🌍 Overview
+
+GlobeTreker is a full-stack travel campground application 🏕️✨ that allows users to:
+
+🌐 Explore campgrounds around the world
+
+➕ Create and manage their own listings
+
+⭐ Review and rate campgrounds
+
+It is built using the MERN-style stack ⚡ (MongoDB, Express, Node.js) and leverages EJS, HTML, and CSS 🎨 for dynamic and responsive front-end rendering.
 
 ---
 
