@@ -2,7 +2,6 @@ const express= require("express");
 const router= express.Router({mergeParams:true});
 const wrapAsync=require("../utils/wrapAsync.js"); //client side custome error handling
 const ExpressError=require("../utils/ExpressError.js");
-const {listingSchema,reviewSchema} = require("../schema.js"); //server side error handling to check schema of listing and review at server database using JOI
 const Reviews = require("../models/review.js");// review mongodb Schema
 const Listing=require("../models/listing.js");
 const {validatereview}=require("../middleware.js");
