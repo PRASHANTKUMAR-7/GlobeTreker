@@ -4,7 +4,7 @@ const wrapAsync=require("../utils/wrapAsync.js"); //client side custome error ha
 const ExpressError=require("../utils/ExpressError.js");
 const Reviews = require("../models/review.js");// review mongodb Schema
 const Listing=require("../models/listing.js");
-const {validatereview, isLoggedIn}=require("../middleware.js");
+const {validatereview, isLoggedIn, isReviewAuthor}=require("../middleware.js");
 
 //Create new review
 router.post("/",validatereview,isLoggedIn, wrapAsync(async(req,res)=>{
@@ -20,7 +20,7 @@ router.post("/",validatereview,isLoggedIn, wrapAsync(async(req,res)=>{
 }));
 
 //Deleting Review Route
-router.delete("/:reviewId",isLoggedIn,
+router.delete("/:reviewId",isLoggedIn,isReviewAuthor,
     wrapAsync(async(req,res)=>{
         let {id, reviewId}=req.params;
         await Listing.findByIdAndUpdate(id, { $pull: {reviews:reviewId}});
