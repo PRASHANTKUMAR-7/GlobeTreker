@@ -13,8 +13,8 @@ const reviewSchema= new Schema({
         default:Date.now(),
     },
     author:{
-        type:schema.Type.ObjectId,
-        ref:"User"
+        type:Schema.Types.ObjectId,
+        ref:"User",
     }
     });
 

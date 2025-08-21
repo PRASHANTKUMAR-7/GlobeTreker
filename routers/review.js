@@ -4,13 +4,13 @@ const wrapAsync=require("../utils/wrapAsync.js"); //client side custome error ha
 const ExpressError=require("../utils/ExpressError.js");
 const Reviews = require("../models/review.js");// review mongodb Schema
 const Listing=require("../models/listing.js");
-const {validatereview}=require("../middleware.js");
+const {validatereview, isLoggedIn}=require("../middleware.js");
 
-
-router.post("/",validatereview, wrapAsync(async(req,res)=>{
+//Create new review
+router.post("/",validatereview,isLoggedIn, wrapAsync(async(req,res)=>{
     let listing= await Listing.findById(req.params.id);
     let newReview=new Reviews(req.body.reviews);
-
+    newReview.author=req.user._id;
     listing.reviews.push(newReview);
 
     await newReview.save();

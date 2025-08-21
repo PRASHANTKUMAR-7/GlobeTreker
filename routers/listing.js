@@ -63,7 +63,13 @@ router.post("/",isLoggedIn,
 //Show Route
 router.get("/:id",  wrapAsync(async (req, res) => {
     let { id } = req.params;
-    const listing = await Listing.findById(id).populate("reviews").populate("owner"); //populate is use to get data by array of ids
+    const listing = await Listing.findById(id)
+    .populate({
+        path:"reviews",
+        populate:{
+        path:"author",
+    }})
+    .populate("owner"); //populate is use to get data by array of ids
     if(!listing){
          req.flash("error","List does not exit!");//creating a flash msg of error when list does not exit
          return res.redirect("/listings")
