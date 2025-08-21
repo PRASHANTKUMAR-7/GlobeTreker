@@ -1,6 +1,6 @@
 const Listing = require("./models/listing.js");
-const ExpressError=require("../utils/ExpressError.js");
-const {listingSchema,reviewSchema} = require("../schema.js"); //server side error handling to check schema of listing and review at server database using JOI
+const ExpressError=require("./utils/ExpressError.js");
+const {listingSchema,reviewSchema} = require("./schema.js"); //server side error handling to check schema of listing and review at server database using JOI
 
 //converting JOI to middleware using funtion  for listing valoidation 
 module.exports.validateListing=(req,res,next)=>{

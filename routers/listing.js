@@ -2,7 +2,7 @@ const express= require("express");
 const router= express.Router();
 const wrapAsync=require("../utils/wrapAsync.js"); //client side custome error handling
 const Listing = require("../models/listing.js"); // lisiting mongodb Schema
-const {isLoggedIn, isOwner}=require("../middleware.js");
+const {isLoggedIn, isOwner,validateListing}=require("../middleware.js");
 
 //print all data on root route or It is Index Route
 router.get("/", async (req, res) => {
