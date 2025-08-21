@@ -4,7 +4,7 @@ const wrapAsync=require("../utils/wrapAsync.js"); //client side custome error ha
 const {listingSchema,reviewSchema} = require("../schema.js"); //server side error handling to check schema of listing and review at server database using JOI
 const ExpressError=require("../utils/ExpressError.js");
 const Listing = require("../models/listing.js"); // lisiting mongodb Schema
-const {isLoggedIn}=require("../middleware.js");
+const {isLoggedIn, isOwner}=require("../middleware.js");
 
 //converting JOI to middleware using funtion  for listing valoidation 
 const validateListing=(req,res,next)=>{
@@ -88,7 +88,7 @@ router.get("/:id",  wrapAsync(async (req, res) => {
 }));
 
 //Route for edit the listing
-router.get("/:id/edit",isLoggedIn, wrapAsync(async (req, res) => {
+router.get("/:id/edit",isLoggedIn,isOwner, wrapAsync(async (req, res) => {
     let { id } = req.params;
     const listing = await Listing.findById(id);
     if(!listing){
@@ -99,22 +99,17 @@ router.get("/:id/edit",isLoggedIn, wrapAsync(async (req, res) => {
 }));
 
 //Route which take input from edit.ejs and save it to database "Update Route"
-router.put("/:id",isLoggedIn,
+router.put("/:id",isLoggedIn,isOwner,
     validateListing,
     wrapAsync(async (req, res) => {
     let { id } = req.params;
-    let listing= await Listing.findById(id);
-    if(!listing.owner.equals(currUser._id)){ //logic to check weather the user is same who wants to edit=owner 
-        req.flash("error","You don;t have permission to edit");
-        res.redirect(`/listings/${id}`);
-    }
     await Listing.findByIdAndUpdate(id, { ...req.body.listing }); //since Listing is a js obj which has all parameter of db
     req.flash("success","List Updated!");//creating a flash msg after updating list
     res.redirect(`/listings/${id}`); //this will redirect on Show.ejs
 }));
 
 //Route to delete the list
-router.delete("/:id",isLoggedIn, wrapAsync(async (req, res) => {
+router.delete("/:id",isLoggedIn,isOwner, wrapAsync(async (req, res) => {
     let { id } = req.params;
     let deletedListing = await Listing.findByIdAndDelete(id); //when findByIdDelete call the the middleware we used in schema section in listing.js it will get executed and deleted all reviews.
     console.log(deletedListing);

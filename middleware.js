@@ -1,3 +1,5 @@
+const Listing = require("./models/listing.js");
+
 module.exports.isLoggedIn=(req,res,next)=>{
 if(!req.isAuthenticated()){
     req.session.redirectUrl = req.originalUrl; // ✅ correct spelling
@@ -13,5 +15,16 @@ module.exports.saveRedirectUrl=(req,res,next)=>{
         res.locals.redirectUrl=req.session.redirectUrl;
      //redired the user from when it canme to login
         }
+    next();
+};
+
+//middleware to protect listing from editing and deleting from unknown user(only owner can do means the creater)
+module.exports.isOwner=async(req,res,next)=>{
+    let { id } = req.params;
+    let listing= await Listing.findById(id);
+    if(!listing.owner._id.equals(res.locals.currUser._id)){ //logic to check weather the user is same who wants to edit=owner 
+        req.flash("error","You don't have permission to edit");
+         return res.redirect(`/listings/${id}`);
+    }
     next();
 };
