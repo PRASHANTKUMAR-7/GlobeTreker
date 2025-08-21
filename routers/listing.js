@@ -37,6 +37,7 @@ router.get("/new", isLoggedIn, wrapAsync(async (req, res) => {
 })); // we puth this route before show route because app.js considering new as id hence ther is error for going on route listings/new
 
 //Route to save new data created by above route 
+
 //there are two method to get data inserted in form either by targeting each data like this := let{title, description,image,price,country, location}=req.body but it is long method we can do it simmple way just make all data in new.ejs obj of listing watch in new.ejs 
 router.post("/",isLoggedIn, 
     validateListing, //first check the validateListing then all 
@@ -102,6 +103,11 @@ router.put("/:id",isLoggedIn,
     validateListing,
     wrapAsync(async (req, res) => {
     let { id } = req.params;
+    let listing= await Listing.findById(id);
+    if(!listing.owner.equals(currUser._id)){ //logic to check weather the user is same who wants to edit=owner 
+        req.flash("error","You don;t have permission to edit");
+        res.redirect(`/listings/${id}`);
+    }
     await Listing.findByIdAndUpdate(id, { ...req.body.listing }); //since Listing is a js obj which has all parameter of db
     req.flash("success","List Updated!");//creating a flash msg after updating list
     res.redirect(`/listings/${id}`); //this will redirect on Show.ejs

@@ -83,7 +83,7 @@ passport.deserializeUser(User.deserializeUser());
 app.use((req,res,next)=>{
     res.locals.success= req.flash("success"); //any msg with success(flash key) came goes to res.locals with its msg
     res.locals.error=req.flash("error");//any msg with error(flash key) came goes to res.locals with its msg
-    res.locals.currUser=req.user;
+    res.locals.currUser=req.user; //store data of current user
     next(); //make sure to call next() to move on oherwise we stuck here
 });
 
