@@ -52,9 +52,9 @@ router.post("/",isLoggedIn,
     // if(result.error){
     //     throw new ExpressError(400, result.error);
     // }
-    const newList = new Listing(req.body.listing);
+    const newListing = new Listing(req.body.listing);
     newListing.owner=req.user._id;
-    await newList.save();
+    await newListing.save();
     req.flash("success","New Listing Created!");//creating a flash msg after creating new list of place
     res.redirect("/listings");    
 })
