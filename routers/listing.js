@@ -1,24 +1,8 @@
 const express= require("express");
 const router= express.Router();
 const wrapAsync=require("../utils/wrapAsync.js"); //client side custome error handling
-const {listingSchema,reviewSchema} = require("../schema.js"); //server side error handling to check schema of listing and review at server database using JOI
-const ExpressError=require("../utils/ExpressError.js");
 const Listing = require("../models/listing.js"); // lisiting mongodb Schema
 const {isLoggedIn, isOwner}=require("../middleware.js");
-
-//converting JOI to middleware using funtion  for listing valoidation 
-const validateListing=(req,res,next)=>{
-    let{error}=listingSchema.validate(req.body);
-    if(error){
-        //since the error is obj so we map it  below and use only use full data from it 
-        let errMsg = error.details.map((el)=>el.message).join(",");
-        throw new ExpressError(400, errMsg);
-    }
-    else{
-        next();
-    }
-};
-
 
 //print all data on root route or It is Index Route
 router.get("/", async (req, res) => {

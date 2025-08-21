@@ -1,4 +1,19 @@
 const Listing = require("./models/listing.js");
+const ExpressError=require("../utils/ExpressError.js");
+const {listingSchema,reviewSchema} = require("../schema.js"); //server side error handling to check schema of listing and review at server database using JOI
+
+//converting JOI to middleware using funtion  for listing valoidation 
+module.exports.validateListing=(req,res,next)=>{
+    let{error}=listingSchema.validate(req.body);
+    if(error){
+        //since the error is obj so we map it  below and use only use full data from it 
+        let errMsg = error.details.map((el)=>el.message).join(",");
+        throw new ExpressError(400, errMsg);
+    }
+    else{
+        next();
+    }
+};
 
 module.exports.isLoggedIn=(req,res,next)=>{
 if(!req.isAuthenticated()){
