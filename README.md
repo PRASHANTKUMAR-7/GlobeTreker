@@ -95,11 +95,11 @@ SignIn
 <img width="1905" height="954" alt="image" src="https://github.com/user-attachments/assets/0db0d1ce-8625-4448-894b-b512a88b6403" />
 Login
 <img width="1915" height="951" alt="image" src="https://github.com/user-attachments/assets/ea36317b-d63c-4898-833f-e203b193d07a" />
-
+All Elements
 <img width="1890" height="951" alt="image" src="https://github.com/user-attachments/assets/0f7d14ef-a23b-4431-a3f9-63de20773b48" />
-
+Show Element
 <img width="1881" height="954" alt="image" src="https://github.com/user-attachments/assets/99aa1409-469c-4920-ba7e-fa6c1495fc67" />
-
+Reviews
 <img width="1888" height="951" alt="image" src="https://github.com/user-attachments/assets/71f9abf8-c445-491c-ba76-2ec007d0198f" />
 
 
