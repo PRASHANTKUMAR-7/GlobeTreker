@@ -5,10 +5,8 @@ const Listing = require("../models/listing.js"); // lisiting mongodb Schema
 const {isLoggedIn, isOwner,validateListing}=require("../middleware.js");
 
 //print all data on root route or It is Index Route
-router.get("/", async (req, res) => {
-    const allListing = await Listing.find({});
-    res.render("./listings/index.ejs", { allListing });
-});
+router.get("/",wrapAsync()
+);
 
 //Route to Create new Listing
 router.get("/new", isLoggedIn, wrapAsync(async (req, res) => {
