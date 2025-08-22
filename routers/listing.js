@@ -3,9 +3,10 @@ const router= express.Router();
 const wrapAsync=require("../utils/wrapAsync.js"); //client side custome error handling
 const Listing = require("../models/listing.js"); // lisiting mongodb Schema
 const {isLoggedIn, isOwner,validateListing}=require("../middleware.js");
+const ListingController=require("../controller/listings.js")
 
 //print all data on root route or It is Index Route
-router.get("/",wrapAsync()
+router.get("/",wrapAsync(index) //index is a the variable used here as refrence of function which is in llistings file of controller folder
 );
 
 //Route to Create new Listing
