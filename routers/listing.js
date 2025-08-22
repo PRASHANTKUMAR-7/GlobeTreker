@@ -6,18 +6,16 @@ const {isLoggedIn, isOwner,validateListing}=require("../middleware.js");
 const ListingController=require("../controller/listings.js")
 
 //print all data on root route or It is Index Route
-router.get("/",wrapAsync(index) //index is a the variable used here as refrence of function which is in llistings file of controller folder
+router.get("/",wrapAsync(ListingController.index) //index is a the variable used here as refrence of function which is in llistings file of controller folder
 );
 
 //Route to Create new Listing
-router.get("/new", isLoggedIn, wrapAsync(async (req, res) => {
-    // if(!req.isAuthenticated()){
+router.get("/new", isLoggedIn, wrapAsync(ListingController.renderNewForm));
+ // if(!req.isAuthenticated()){ *now shif to middleware*
     //     req.flash("error","You must be logged in to create listing");
     //     return res.redirect("/login");
     // } this is going to use ad middleware becuse it will use several placea like delete/edit listing
-    res.render("listings/new.ejs");
-
-})); // we puth this route before show route because app.js considering new as id hence ther is error for going on route listings/new
+    // we puth this route before show route because app.js considering new as id hence ther is error for going on route listings/new
 
 //Route to save new data created by above route 
 
