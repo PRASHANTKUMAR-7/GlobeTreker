@@ -34,14 +34,14 @@
                 </div>
             </div>
             <br />
-            <%#if(currUser && currUser._id.equals(listing.owner._id)){ we removed it because anyone can bypass it using postman or hoppscotch and send dirct request to route and get access so we put login in route %>
+            <%if(currUser && currUser._id.equals(listing.owner._id)){ we removed it because anyone can bypass it using postman or hoppscotch and send dirct request to route and get access so we put login in route %>
             <div class="btns mb-5">
                 <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark offset-3 edit-btn">Edit</a>
                 <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE">
                     <button class="btn btn-dark offset-4">Delete</button>
                 </form>
             </div> 
-            <%#}%>
+            <%}%>
 
             <%if(currUser){%>
             <div class="col-8 offset-2 mb-3">
