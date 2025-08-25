@@ -1,4 +1,4 @@
-
+const User= require("..models/user");
 
 //route to render signup form
 module.exports.renderSignupForm=(req,res)=>{
