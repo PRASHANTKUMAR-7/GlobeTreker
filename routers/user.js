@@ -18,14 +18,6 @@ router.post("/login",
             failureFlash: true}),
             userController.login);
 //log out route
-router.get("/logout",(req,res,next)=>{
-    req.logout((err)=>{
-        if(err){
-            return next(err);
-        }
-        req.flash("success","You are logged out!");
-        res.redirect("/listings")
-    });
-});
+router.get("/logout",userController.logOut);
 
 module.exports=router;

@@ -31,11 +31,23 @@ module.exports.renderloginForm=(req,res)=>{
     res.render("users/login.ejs");
 };
 
-
+//render after login
 module.exports.login=async(req,res)=>{
                 req.flash("success","Welcome To GlobeTreker");
                  // ✅ Fallback to a safe route if no redirectUrl was saved
                 const redirectUrl = res.locals.redirectUrl || "/listings";//since if we direct login from listing then saveRedirectUrl never execute and we dont get locals and if no locals then we get no prev route so to avoid this we use OR operator to avoid this ans use it b/w res.locals.redirectUrl and "/listings".
                 delete req.session.redirectUrl; // clear session value
                 res.redirect(redirectUrl);
+};
+
+
+//route for logout
+module.exports.logOut=(req,res,next)=>{
+    req.logout((err)=>{
+        if(err){
+            return next(err);
+        }
+        req.flash("success","You are logged out!");
+        res.redirect("/listings")
+    });
 };
