@@ -12,13 +12,7 @@ router.post("/",validatereview,isLoggedIn, wrapAsync(reviewController.newReview)
 
 //Deleting Review Route
 router.delete("/:reviewId",isLoggedIn,isReviewAuthor,
-    wrapAsync(async(req,res)=>{
-        let {id, reviewId}=req.params;
-        await Listing.findByIdAndUpdate(id, { $pull: {reviews:reviewId}});
-        await Reviews.findByIdAndDelete(reviewId);
-        req.flash("success","Review Deleted!");//creating a flash msg after creating new review of place
-        res.redirect(`/listings`);
-    })
+    wrapAsync()
 );
 
 module.exports=router;

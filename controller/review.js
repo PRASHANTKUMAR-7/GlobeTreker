@@ -13,3 +13,12 @@ module.exports.newReview=async(req,res)=>{
     req.flash("success","New Review Created!");//creating a flash msg after creating new review of place
      res.redirect("/listings");
 };
+
+//route for deleting review
+module.exports.deleteReview=async(req,res)=>{
+        let {id, reviewId}=req.params;
+        await Listing.findByIdAndUpdate(id, { $pull: {reviews:reviewId}});
+        await Reviews.findByIdAndDelete(reviewId);
+        req.flash("success","Review Deleted!");//creating a flash msg after creating new review of place
+        res.redirect(`/listings`);
+    };
