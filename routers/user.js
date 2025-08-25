@@ -6,15 +6,11 @@ const passport= require("passport");
 const { saveRedirectUrl } = require("../middleware.js");
 const userController= require("../controller/user.js");
 
-router.get("/signup",(req,res)=>{
-    res.render("users/signup.ejs");
-});
+router.get("/signup",userController.renderSignupForm);
 router.post("/signup",wrapAsync(userController.signUp));
 
 //login route
-router.get("/login",(req,res)=>{
-    res.render("users/login.ejs");
-});
+router.get("/login",userController.renderloginForm);
 router.post("/login",
     saveRedirectUrl,//to redirect the user from that route/page from where it came for login using locals variables and middleware
     passport.authenticate("local",

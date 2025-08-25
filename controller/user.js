@@ -1,5 +1,10 @@
 
 
+//route to render signup form
+module.exports.renderSignupForm=(req,res)=>{
+    res.render("users/signup.ejs");
+};
+
 //create new user route
 module.exports.signUp=async(req,res)=>{ //we async with (req,res) because it make changes in database that can take time so to handle this we use async
     try{
@@ -19,4 +24,9 @@ module.exports.signUp=async(req,res)=>{ //we async with (req,res) because it mak
         res.redirect("/signup");
 
     }
+};
+
+
+module.exports.renderloginForm=(req,res)=>{
+    res.render("users/login.ejs");
 };
