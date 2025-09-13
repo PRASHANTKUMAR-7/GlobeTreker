@@ -1,4 +1,6 @@
 // aquiring/requiring  and loading function  
+//env file for inp credential
+if(process.env.NODE_ENV!="production"){require('dotenv').config();}
 
 const express = require("express"); //adding express
 const app = express();
