@@ -14,3 +14,7 @@ const storage = new CloudinaryStorage({
     allowerdFormats:["png","jpg","jpeg"] ,// supports promises as well
   },
 });
+module.export={
+    cloudinary,
+    storage,
+}

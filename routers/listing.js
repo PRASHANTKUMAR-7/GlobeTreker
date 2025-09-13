@@ -6,7 +6,8 @@ const Listing = require("../models/listing.js"); // lisiting mongodb Schema
 const {isLoggedIn, isOwner,validateListing}=require("../middleware.js");
 const ListingController=require("../controller/listings.js")
 const multer = require('multer');//multer is user to parse form data
-const upload = multer({dest: 'uploads/'});//after parsing form data save to uploads folder
+const {storage}= require ("../cloudConfig.js");
+const upload = multer({storage});//after parsing form data save to  local uploads folder if we use {dest: 'uploads/'} but now we save it to cloudinary so storage
 
 router
 //print all data on root route or It is Index Route
