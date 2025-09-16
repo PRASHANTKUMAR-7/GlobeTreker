@@ -11,10 +11,10 @@ const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
     folder: 'globetreker_webdev',
-    allowerdFormats:["png","jpg","jpeg"] ,// supports promises as well
+    allowedFormats:["png","jpg","jpeg"] ,// supports promises as well
   },
 });
-module.export={
+module.exports={
     cloudinary,
     storage,
 }

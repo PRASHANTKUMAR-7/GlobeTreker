@@ -12,22 +12,19 @@ const upload = multer({storage});//after parsing form data save to  local upload
 router
 //print all data on root route or It is Index Route
     .route("/")
-    .get(wrapAsync(ListingController.index) //index is a the variable used here as refrence of function which is in listings file of controller folder
-    )
-    .post(upload.single("listing[image]"),(req,res)=>{
-    res.send(req.file);
-    }
-);
+    .get(wrapAsync(ListingController.index)); //index is a the variable used here as refrence of function which is in listings file of controller folder
 
 //Route to Create new Listing
 router.get("/new", isLoggedIn, wrapAsync(ListingController.renderNewForm));
 
 //Route to save new data created by above route 
 //there are two method to get data inserted in form either by targeting each data like this := let{title, description,image,price,country, location}=req.body but it is long method we can do it simmple way just make all data in new.ejs obj of listing watch in new.ejs 
-// router.post("/",isLoggedIn, 
-//     validateListing, //first check the validateListing then all 
-//     wrapAsync(ListingController.createListing)
-// );  
+router.post("/",isLoggedIn, 
+   
+    upload.single("listing[image]"),
+    validateListing, //first check the validateListing then all 
+    wrapAsync(ListingController.createListing)
+);  
 
 
 
@@ -39,7 +36,7 @@ router.get("/:id",  wrapAsync(ListingController.showRoute));
 router.get("/:id/edit",isLoggedIn,isOwner, wrapAsync(ListingController.editListing));
 
 //Route which take input from edit.ejs and save it to database "Update Route"
-router.put("/:id",isLoggedIn,isOwner,
+router.put("/:id",isLoggedIn,isOwner,upload.single("listing[image]"), //why before validate listing
     validateListing,
     wrapAsync(ListingController.updateListing));
 

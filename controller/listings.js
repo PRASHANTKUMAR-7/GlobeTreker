@@ -58,8 +58,17 @@ module.exports.createListing=async (req, res,next) => {
     //     throw new ExpressError(400, result.error);
     // }
     const newListing = new Listing(req.body.listing);
-    newListing.owner=req.user._id;
-    await newListing.save();
+newListing.owner = req.user._id;
+
+if (req.file) {
+  let url = req.file.path;
+  let filename = req.file.filename;
+  newListing.image = { url, filename };
+} //to save image as it is not by its link
+
+// if no file, schema defaults will apply
+await newListing.save();
+
     req.flash("success","New Listing Created!");//creating a flash msg after creating new list of place
     res.redirect("/listings");    
 };
@@ -71,12 +80,20 @@ module.exports.editListing=async (req, res) => {
          req.flash("error","List does not exit!");//creating a flash msg of error when list does not exit
          return res.redirect("/listings")
     }
-    res.render("listings/edit.ejs", { listing });
+    let originalUrl=listing.image.url;
+    originalUrl=originalUrl.replace("/upload","/upload/h_250,w_250");//changing image quality using cloundinary inbuilt function
+    res.render("listings/edit.ejs", { listing,originalUrl });
 };
 
 module.exports.updateListing=async (req, res) => {
     let { id } = req.params;
-    await Listing.findByIdAndUpdate(id, { ...req.body.listing }); //since Listing is a js obj which has all parameter of db
+    let listing = await Listing.findByIdAndUpdate(id, { ...req.body.listing }); //since Listing is a js obj which has all parameter of db
+    if (req.file) {
+        let url = req.file.path;
+        let filename = req.file.filename;
+        listing.image = { url, filename };
+        await listing.save();
+    }
     req.flash("success","List Updated!");//creating a flash msg after updating list
     res.redirect(`/listings/${id}`); //this will redirect on Show.ejs
 };

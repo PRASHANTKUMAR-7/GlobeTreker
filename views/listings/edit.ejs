@@ -12,7 +12,7 @@
             <div class="animate__animated animate__bounceInDown animate__fast col-8 offset-0.5">
                 <h3>Edit your Listing</h3>
                 <form method="POST" action="/listings/<%= listing._id %>?_method=PUT" novalidate
-                    class="needs-validation">
+                    class="needs-validation" enctype="multipart/form-data">
                     <!-- use method to override post request to put request -->
                     <div class="mb-3">
                         <label for="title" class="form-lable">Title</label>
@@ -31,13 +31,17 @@
                             Please fill the box.
                         </div>
                     </div>
+                    <div class="col-4 mb-3">
+                        <h6>Original Image</h6>
+                        <img src="<%=originalUrl%>" class="img-fluid float-left mr-3 mb-3" alt="Original Image">
+                    </div>
 
                     <div class="mb-3">
-                        <label for="image" class="form-lable">Image Link</label>
-                        <input name="listing[image][url]" value="<%=listing.image.url %>" type="text" class="form-control" required>
-                        <div class="invalid-feedback">
+                        <label for="image" class="form-lable">Upload New Image</label>
+                        <input name="listing[image]" value="<%=listing.image.url %>" type="file" class="form-control">
+                        <!-- <div class="invalid-feedback">
                             Please fill the box.
-                        </div>
+                        </div> -->
                     </div>
 
                     <div class="row">

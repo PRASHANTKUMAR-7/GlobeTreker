@@ -9,15 +9,112 @@
 <!-- <form  method="GET" action="/listings/new">
         <Button>New Listing</Button>
     </form> --> <!-- now the name behave as hyperlink which redirect to show.ejs -->
+<style>
+    #filters {
+    /* Enables flexbox layout for the child elements */
+    display: flex;
 
+    /* Allows horizontal scrolling when content overflows the container */
+    overflow-x: auto;
+
+    /* Prevents the children from wrapping to a new line */
+    flex-wrap: wrap;
+
+    /* Adds some space between the filter items */
+    gap: 1.5rem;
+    align-items: center;
+
+    /* Hides the default scrollbar for a cleaner look */
+    /* You can remove this if you want the scrollbar to be visible */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+/* For WebKit browsers (Chrome, Safari) */
+#filters::-webkit-scrollbar {
+    display: none;
+}
+    .filter{
+        text-align: center;
+        font-size: smaller;
+        margin-right: 0.7rem;
+        margin-top: 2rem;
+        opacity: 0.6;
+        width: 2.5rem;
+    }
+    .filter:hover{
+        opacity: 1;
+        cursor: pointer;
+        font-weight:900;
+    }
+    .tax-info{
+        display: none;
+
+    }
+    .tax-toggle{
+        border: 1px solid black;
+        border-radius: 1rem;
+        height: 2.5rem;
+        padding: 0.5rem;
+        margin-left: 3rem;
+        display: flex;
+        align-items: center;
+    }
+</style>
 
 <% layout("/layouts/boilerplate") %> <!-- ejs-mate layout -->
 <body>
-    <h3 class="animate__animated animate__bounceInDown animate__fast">All Listings</h3>
+    <div id="filters">
+        <div class="filter">
+            <i class="fa-solid fa-fire"></i>
+            Trending
+        </div>
+        <div class="filter">
+            <i class="fa-solid fa-bed"></i>
+            Bed
+        </div>
+        <div class="filter">
+            <i class="fa-solid fa-house-signal"></i>
+            Wifi
+        </div>
+        <div class="filter">
+            <i class="fa-solid fa-person-swimming"></i>
+            Pool
+        </div>
+        <div class="filter">
+            <i class="fa-solid fa-kitchen-set"></i>
+             Kitchen
+        </div>
+        <div class="filter">
+            <i class="fa-solid fa-car"></i>
+            Parking
+        </div>
+        <div class="filter">
+            <i class="fa-solid fa-paw"></i>
+            Pet Friendly
+        </div>
+        <div class="filter">
+            <i class="fa-solid fa-temperature-arrow-down"></i>
+            Air Condition
+        </div>
+        <div class="filter">
+            <i class="fa-solid fa-leaf"></i>
+            Natural
+        </div>  
+        <div class="tax-toggle">
+            <div class="form-check-reverse form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+            <label class="form-check-label" for="flexSwitchCheckDefault">Display Taxes</label>
+            </div>
+        </div>   
+    </div> 
+    <!-- change in backend and listing must store data based on this logo and if user click on it then person got the list having the facilities -->
+
+
+    <!-- <h3 class="animate__animated animate__bounceInDown animate__fast">All Listings</h3> -->
     <!-- <form  method="GET" action="/listings/new">
         <Button>New Listing</Button>
     </form> --> <!-- now the name behave as hyperlink which redirect to show.ejs -->
-    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
         <% for(let list of allListing) { %>
             <div class="card m-3 listing-card" style="width: 17rem;">
                 <a href="/listings/<%= list._id %>" class="listing-link">
@@ -30,7 +127,8 @@
 
                     <% if (list.price != null) { %>
                         <p class="card-text">
-                            <b><%= list.price.toLocaleString("en-IN") %> / night</b>
+                            <b><%= list.price.toLocaleString("en-IN") %> / night
+                            <i class="tax-info">&nbsp;&nbsp; 18% GST</i></b>
                         </p>
                     <% } else { %>
                         <p class="card-text"><b>Price not available</b></p>
@@ -43,3 +141,17 @@
     </div>
 </body>
 <!-- </html> -->
+ <script>
+   let taxSwitch=document.getElementById("flexSwitchCheckDefault");
+   taxSwitch.addEventListener("click",()=>{
+    let taxInfo=document.getElementsByClassName("tax-info");
+    for(info of taxInfo){
+        if(info.style.display !="inline"){
+        info.style.display="inline";
+        }
+        else{
+          info.style.display="none"  
+        }
+    }
+   })
+ </script>

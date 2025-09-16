@@ -67,9 +67,9 @@ const sessionOptions={
 
 
 // this is the root route
-app.get("/", (req, res) => {
-    res.send("Hi, I am Root");
-});
+// app.get("/", (req, res) => {
+//     res.send("Hi, I am Root");
+// });
 
 app.use(session(sessionOptions));
 app.use(flash()); //make sure always use session and flash before creating route
