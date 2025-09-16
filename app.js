@@ -117,7 +117,7 @@ app.use((req,res,next)=>{
 
 
 app.get("/", (req, res) => {
-  res.render("litings/index");
+  res.render("listings/front"); // create views/home.ejs
 });
 
 
