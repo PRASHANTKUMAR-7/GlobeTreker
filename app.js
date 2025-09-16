@@ -34,6 +34,7 @@ const User= require("./models/user.js");
 
 // establishing mongodb with try and catch
 const dbUrl=process.env.MONGODB_LINK;
+// let local_db_url='mongodb://127.0.0.1:27017/wanderLust';
 main().then(() => {
     console.log("conected to DB")
 })
@@ -42,7 +43,7 @@ main().then(() => {
 async function main() {
     await mongoose.connect(dbUrl);
 }
-//  let local_db_url='mongodb://127.0.0.1:27017/wanderLust';
+ 
 
 app.set("view engine", "ejs"); //use to get accsess to ejs file
 app.set("views", path.join(__dirname, "views")); // use to define folder name to js to search ejs file
