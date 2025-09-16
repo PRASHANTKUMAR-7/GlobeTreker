@@ -32,13 +32,14 @@ const LocalStrategy=require("passport-local")
 const User= require("./models/user.js");
 
 // establishing mongodb with try and catch
+const dbUrl=process.env.MONGODB_LINK;
 main().then(() => {
     console.log("conected to DB")
 })
     .catch(err => console.log(err));
 
 async function main() {
-    await mongoose.connect('mongodb://127.0.0.1:27017/wanderLust');
+    await mongoose.connect(dbUrl);
 }
 
 app.set("view engine", "ejs"); //use to get accsess to ejs file
