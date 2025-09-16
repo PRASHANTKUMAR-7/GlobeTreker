@@ -2,10 +2,21 @@
   .btn-search{
     background-color: #fe424d;
     color: #fff;
+    border-radius: 25px;
+    padding: 0 1rem 0 1rem;
   }
   .btn-search:hover{
     background-color:  #fe424d;
     color: #fff;
+  }
+  .btn-search i{
+    display: inline;
+    margin-right: 0.5rem;
+  }
+  .btn-search-input{
+    border-radius: 25px;
+    padding: 0.5rem 3rem 0.5rem 3rem;
+    font-size: 1rem;
   }
   
 </style>
@@ -19,15 +30,16 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-center" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
+            <div class="navbar-nav ">
                 <a class="nav-link" href="/listings">Explore</a>
             </div>
             <form class="d-flex w-80 ms-auto" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-search" type="submit">Search</button>
+                <input class="form-control me-2 btn-search-input" type="search" placeholder="Search Desrination">
+                <button class="btn btn-search" type="submit">
+                  <i class="fa-solid fa-magnifying-glass"></i>Search</button>
             </form>
             <div class="navbar-nav ms-auto">
-                <a class="nav-link" href="/listings/new">Add Your Place</a>
+                <a class="nav-link" href="/listings/new">Add New Place</a>
                 <%if(!currUser){ %>
                 <a class="nav-link" href="/signup"><b>Sign Up</b></a>
                 <a class="nav-link" href="/login"><b>Log In</b></a>
