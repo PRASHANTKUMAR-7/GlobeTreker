@@ -22,7 +22,8 @@ const Reviews = require("./models/review.js");// review mongodb Schema
 const listingsRouter=require("./routers/listing.js");
 const reviewsRouter=require("./routers/review.js");
 const usersRouter=require("./routers/user.js");
-const session= require("express-session");//require session 
+const session= require("express-session");//require session
+const MongoStore = require('connect-mongo');//online seesion for cookies
 const flash = require('express-flash');
 
 
@@ -41,6 +42,7 @@ main().then(() => {
 async function main() {
     await mongoose.connect(dbUrl);
 }
+//  let local_db_url='mongodb://127.0.0.1:27017/wanderLust';
 
 app.set("view engine", "ejs"); //use to get accsess to ejs file
 app.set("views", path.join(__dirname, "views")); // use to define folder name to js to search ejs file
@@ -55,8 +57,20 @@ app.use(express.static(path.join(__dirname, "/public")));//use to accsess to sta
 // e.g., in tools like Hoppscotch or Postman, or from React/JS frontend using fetch or axios
 app.use(express.json());
 
+const store=MongoStore.create({
+    mongoUrl:dbUrl,
+    crypto:{
+        secret:process.env.SECRET,
+    },
+    touchAfter:24*3600,
+});
+store.on("error",()=>{
+    console.log("Error in Mongo Session",err)
+});
+
 const sessionOptions={
-    secret:"encryptedText",
+    store:store,
+    secret:process.env.SECRET,
     resave:false,
     saveUninitialized:true,
     cookie:{
